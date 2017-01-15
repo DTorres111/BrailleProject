@@ -8,7 +8,7 @@ public class App{
 		project.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		project.setSize(1000,1000);
 		project.setVisible(true);
-
+		System.out.println("Testing");
 	}
 	
 }
