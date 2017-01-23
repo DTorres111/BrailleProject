@@ -52,6 +52,7 @@ public class Simulator extends JFrame{
 	
 	image1=new JLabel(new ImageIcon("C:\\Users\\dany4\\Pictures\\JavaPalLogo.jpg"));
 	add(image1);
+	
             }
 }	
 
