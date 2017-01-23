@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 
-public class Simulator extends JFrame {
+public class Simulator {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -32,7 +32,6 @@ public class Simulator extends JFrame {
 				try {
 					Simulator window = new Simulator();
 					window.frame.setVisible(true);
-					window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
