@@ -1,15 +1,25 @@
 package eecs2311.simulator;
+import java.awt.EventQueue;
 import javax.swing.JFrame;
-public class App {
 
-	public static void main(String[] args) {
+public class App {
 	
-			//creates frame
-				Simulator project=new Simulator();
-				project.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				project.setSize(1000,1000);
-				project.setVisible(true);
-			}	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SimulatorAPI window = new SimulatorAPI(20,20);
+					window.getFrame().setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	}
 
 
