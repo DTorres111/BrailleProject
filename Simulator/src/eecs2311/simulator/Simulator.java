@@ -88,7 +88,11 @@ public class Simulator extends JFrame{
 					.addComponent(button_panel, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
 					.addGap(1))
 		);
+		TheHandler handler=new TheHandler();
 		
+		/**
+		 * Creates Pins.
+		 */
 		for(int p=0; p<pins ;p++){
 			if(p<10){
 		JButton pin = new JButton("");
@@ -101,6 +105,10 @@ public class Simulator extends JFrame{
 			}
 		}
 		
+		/**
+		 * Creates Buttons.
+		 * Handles Events.
+		 */
 		for(int b=0;b<buttons;b++){
 	    if(b<15){
 		JButton btn = new JButton("Button "+ (b+1));
@@ -110,7 +118,24 @@ public class Simulator extends JFrame{
 		button_panel.add(btn);
 		btnArray[b]=btn;
 		frame.getContentPane().setLayout(groupLayout);
+		btn.addActionListener(handler);
 	    }
 			}
-		}	
+		}
+	public void setPin(int pinNumbr){
+		if(pinArray[pinNumbr-1].getBackground()==Color.RED){
+		pinArray[pinNumbr-1].setBackground(Color.GREEN);
+		}else{
+		pinArray[pinNumbr-1].setBackground(Color.RED);	
+		}
+	}
+	
+	public class TheHandler implements ActionListener{
+
+		public void actionPerformed(ActionEvent event){
+			if(event.getSource()==btnArray[0]){
+				System.out.println("Button 1 pressed");
+			}
+		}
+	}
 }
