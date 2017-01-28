@@ -1,9 +1,14 @@
 package eecs2311.simulator;
 
-public class SimulatorAPI extends Simulator{
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+public class SimulatorAPI extends Simulator{
+	private int btns;
+	
 	public SimulatorAPI(int buttons, int pins){
 		super(buttons,pins);
+		this.btns=buttons;
 	}
 	
 	public void setLetter(char letter){	
@@ -17,5 +22,4 @@ public class SimulatorAPI extends Simulator{
 		for(int i=0;i<getPinArray().length;i++){
 		}	
 	}
-	
 	}

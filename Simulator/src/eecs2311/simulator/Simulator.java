@@ -107,7 +107,6 @@ public class Simulator extends JFrame{
 		
 		/**
 		 * Creates Buttons.
-		 * Handles Events.
 		 */
 		for(int b=0;b<buttons;b++){
 	    if(b<15){
@@ -133,8 +132,36 @@ public class Simulator extends JFrame{
 	public class TheHandler implements ActionListener{
 
 		public void actionPerformed(ActionEvent event){
-			if(event.getSource()==btnArray[0]){
+			if(event.getSource()==getButtonArray()[0]){
 				System.out.println("Button 1 pressed");
+			}else if(event.getSource()==getButtonArray()[1]){
+				System.out.println("Button 2 pressed");
+			}else if(event.getSource()==getButtonArray()[2]){
+				System.out.println("Button 3 pressed");
+			}else if(event.getSource()==getButtonArray()[3]){
+				System.out.println("Button 4 pressed");
+			}else if(event.getSource()==getButtonArray()[4]){
+				System.out.println("Button 5 pressed");
+			}else if(event.getSource()==getButtonArray()[5]){
+				System.out.println("Button 6 pressed");
+			}else if(event.getSource()==getButtonArray()[6]){
+				System.out.println("Button 7 pressed");
+			}else if(event.getSource()==getButtonArray()[7]){
+				System.out.println("Button 8 pressed");
+			}else if(event.getSource()==getButtonArray()[8]){
+				System.out.println("Button 9 pressed");
+			}else if(event.getSource()==getButtonArray()[9]){
+				System.out.println("Button 10 pressed");
+			}else if(event.getSource()==getButtonArray()[10]){
+				System.out.println("Button 11 pressed");
+			}else if(event.getSource()==getButtonArray()[11]){
+				System.out.println("Button 12 pressed");
+			}else if(event.getSource()==getButtonArray()[12]){
+				System.out.println("Button 13 pressed");
+			}else if(event.getSource()==getButtonArray()[13]){
+				System.out.println("Button 14 pressed");
+			}else if(event.getSource()==getButtonArray()[14]){
+				System.out.println("Button 15 pressed");
 			}
 		}
 	}
