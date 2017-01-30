@@ -6,17 +6,24 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.*;
 
+
 public class Simulator extends JFrame{
 
 	private JFrame frame;
 	private JButton pinArray[];
 	private JButton btnArray[];
+	public int numberOfButtons;
+	public int x=0;
+	
+	
+	
 
 	/**
 	 * Create the application.
 	 */
 	public Simulator(int buttons, int pins) {
 		initialize(buttons, pins);
+		numberOfButtons=buttons;
 	}
 
 	public JFrame getFrame(){
@@ -28,6 +35,15 @@ public class Simulator extends JFrame{
 	public JButton[] getPinArray(){
 		return pinArray;
 	}
+	public int getNumberOfButtons()
+	{
+		return numberOfButtons;
+	}
+	public int getX()
+	{
+		return x;
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -50,7 +66,7 @@ public class Simulator extends JFrame{
 		}
 		
 		frame = new JFrame("Brille Device Simulator");
-		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
+		frame.getContentPane().setBackground(new Color(150,164,228));
 		frame.setBackground(Color.WHITE);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,9 +75,10 @@ public class Simulator extends JFrame{
 		 * Panels.
 		 */
 		JPanel pin_panel = new JPanel();
-		pin_panel.setBackground(Color.LIGHT_GRAY);
+		pin_panel.setBackground(new Color(150,164,228));
 	    JPanel button_panel = new JPanel();
-	    button_panel.setBackground(Color.CYAN);
+	    
+	    button_panel.setBackground(new Color(45,89,135));
 	    
 		pin_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 	    button_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -94,7 +111,7 @@ public class Simulator extends JFrame{
 		 * Creates Pins.
 		 */
 		for(int p=0; p<pins ;p++){
-			if(p<10){
+		if(p<10){
 		JButton pin = new JButton("");
 		pin.setEnabled(false);
 		pin.setBackground(Color.RED);
@@ -121,7 +138,7 @@ public class Simulator extends JFrame{
 	    }
 			}
 		}
-	public void setPin(int pinNumbr){
+	/*public void changePinColor(int pinNumbr){
 		if(pinArray[pinNumbr-1].getBackground()==Color.RED){
 		pinArray[pinNumbr-1].setBackground(Color.GREEN);
 		}else{
@@ -129,40 +146,62 @@ public class Simulator extends JFrame{
 		}
 	}
 	
+	*/
+	
 	public class TheHandler implements ActionListener{
 
 		public void actionPerformed(ActionEvent event){
 			if(event.getSource()==getButtonArray()[0]){
+				x=1;
 				System.out.println("Button 1 pressed");
 			}else if(event.getSource()==getButtonArray()[1]){
+				x=2;
 				System.out.println("Button 2 pressed");
 			}else if(event.getSource()==getButtonArray()[2]){
+				x=3;
 				System.out.println("Button 3 pressed");
 			}else if(event.getSource()==getButtonArray()[3]){
+				x=4;
 				System.out.println("Button 4 pressed");
 			}else if(event.getSource()==getButtonArray()[4]){
+				x=5;
 				System.out.println("Button 5 pressed");
 			}else if(event.getSource()==getButtonArray()[5]){
+				x=6;
 				System.out.println("Button 6 pressed");
 			}else if(event.getSource()==getButtonArray()[6]){
+				x=7;
 				System.out.println("Button 7 pressed");
 			}else if(event.getSource()==getButtonArray()[7]){
+				x=8;
 				System.out.println("Button 8 pressed");
 			}else if(event.getSource()==getButtonArray()[8]){
+				x=9;
 				System.out.println("Button 9 pressed");
 			}else if(event.getSource()==getButtonArray()[9]){
+				x=10;
 				System.out.println("Button 10 pressed");
 			}else if(event.getSource()==getButtonArray()[10]){
+				x=11;
 				System.out.println("Button 11 pressed");
 			}else if(event.getSource()==getButtonArray()[11]){
+				x=12;
 				System.out.println("Button 12 pressed");
 			}else if(event.getSource()==getButtonArray()[12]){
+				x=13;
 				System.out.println("Button 13 pressed");
 			}else if(event.getSource()==getButtonArray()[13]){
+				x=14;
 				System.out.println("Button 14 pressed");
 			}else if(event.getSource()==getButtonArray()[14]){
+				x=15;
 				System.out.println("Button 15 pressed");
 			}
 		}
+		
+		
+	
+	
+	
 	}
 }

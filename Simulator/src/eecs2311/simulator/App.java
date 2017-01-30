@@ -11,14 +11,15 @@ public class App {
 		//EventQueue.invokeLater(new Runnable() {
 		//	public void run() {
 			//	try {
-					SimulatorAPI window = new SimulatorAPI(5,8);
+					SimulatorAPI window = new SimulatorAPI(6,8);
 					window.getFrame().setVisible(true);
-					window.setLetter('a');
-					window.setPin(5);
-					System.out.println(window.getPinArray()[4].getBackground());
-					window.setPin(5);
-					System.out.println(window.getPinArray()[4].getBackground());
-					window.resetPins();				
+				//  window.disablebutton(2);
+					window.setLetter('z');
+				//	window.setPin(7);
+				//	System.out.println(window.getPinArray()[4].getBackground());
+				//	window.setPin(5);
+				//	System.out.println(window.getPinArray()[4].getBackground());
+				//	window.resetPins();				
 			//	} catch (Exception e) {
 			//		e.printStackTrace();
 			//	}
