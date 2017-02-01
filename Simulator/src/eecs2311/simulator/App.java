@@ -1,29 +1,48 @@
 package eecs2311.simulator;
 
-import java.awt.EventQueue;
-
 public class App {
 	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		//EventQueue.invokeLater(new Runnable() {
-		//	public void run() {
-			//	try {
-					SimulatorAPI window = new SimulatorAPI(6,8);
+		int count=0;
+		
+					SimulatorAPI window = new SimulatorAPI(6,8,1);
 					window.getFrame().setVisible(true);
-				//  window.disablebutton(2);
-					window.setLetter('z');
-				//	window.setPin(7);
-				//	System.out.println(window.getPinArray()[4].getBackground());
-				//	window.setPin(5);
-				//	System.out.println(window.getPinArray()[4].getBackground());
-				//	window.resetPins();				
-			//	} catch (Exception e) {
-			//		e.printStackTrace();
-			//	}
-		//	}
-	//	});
+					
+				//	window.setLetter('z');
+					System.out.println("If you think this is letter a, click Button 1. If you think it is z, click Button 2.");
+					window.disableAll();
+					window.enableButton(1);
+					window.enableButton(2);
+								
+					while(window.getX()==0){
+						try{
+						Thread.sleep(1);
+						}catch(InterruptedException ex){}
+					}
+				
+					if(window.getX()==2){
+						System.out.println("Good Job!");
+					}else{
+						System.out.println("Sorry that is incorrect, try again.");
+						count++;
+					}
+					
+					if(count!=0){
+					while(window.getX()==1){
+						try{
+						Thread.sleep(1);
+						}catch(InterruptedException ex){}
+					}
+					
+					if(window.getX()==2){
+						System.out.println("Good Job!");
+					}else{
+						System.out.println("Sorry that is incorrect.");
+					}
+				}
+					window.enableAll();
 	}
 }

@@ -5,14 +5,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SimulatorAPI extends Simulator{
-	private int btns;
+	TheHandler handler=new TheHandler();
+	private int x=0;
 
-	
-	public SimulatorAPI(int buttons, int pins){
-		super(buttons,pins);
-		this.btns=buttons;
+	public int getX()
+	{
+		return x;
 	}
 	
+	public SimulatorAPI(int buttons, int pins, int cells){
+      super(buttons,pins,cells);
+		for(int i=0;i<buttons;i++){
+		getButtonArray()[i].addActionListener(handler);
+		}
+	}
+	
+	/*
 	public void setLetter(char letter){	
 		switch(letter)
 		{
@@ -158,12 +166,11 @@ public class SimulatorAPI extends Simulator{
 			setPin(6);
 			break;
 			
-		}
-		
-			
+		}		
 	}
+	*/
 	
-	
+	/*
 	public void setPin(int pinNumbr){
 		
 		if(getPinArray()[pinNumbr-1].getBackground()==Color.RED){
@@ -175,16 +182,16 @@ public class SimulatorAPI extends Simulator{
 			}
 		
 	}
+	*/
 	
-	
-	
+	/*
 	
 	public void resetPins(){
 		for(int i=0;i<getPinArray().length;i++){
 			getPinArray()[i].setBackground(Color.RED);	
 		}	
 	}
-		
+	*/	
 	
 	
 	public void enableButton(int btnNumber)
@@ -218,12 +225,60 @@ public class SimulatorAPI extends Simulator{
 			}
 		}
 	
+	public class TheHandler implements ActionListener{
+
+		public void actionPerformed(ActionEvent event){
+			if(event.getSource()==getButtonArray()[0]){
+				x=1;
+				System.out.println("Button 1 pressed");
+			
+			}else if(event.getSource()==getButtonArray()[1]){
+				x=2;
+				System.out.println("Button 2 pressed");
+		
+			}else if(event.getSource()==getButtonArray()[2]){
+				x=3;
+				System.out.println("Button 3 pressed");
+		
+			}else if(event.getSource()==getButtonArray()[3]){
+				x=4;
+				System.out.println("Button 4 pressed");
 	
-	
-	public int getButtonEvent()
-		{
-			return getX();
+			}else if(event.getSource()==getButtonArray()[4]){
+				x=5;
+				System.out.println("Button 5 pressed");
+			}else if(event.getSource()==getButtonArray()[5]){
+				x=6;
+				System.out.println("Button 6 pressed");
+			}else if(event.getSource()==getButtonArray()[6]){
+				x=7;
+				System.out.println("Button 7 pressed");
+			}else if(event.getSource()==getButtonArray()[7]){
+				x=8;
+				System.out.println("Button 8 pressed");
+			}else if(event.getSource()==getButtonArray()[8]){
+				x=9;
+				System.out.println("Button 9 pressed");
+			}else if(event.getSource()==getButtonArray()[9]){
+				x=10;
+				System.out.println("Button 10 pressed");
+			}else if(event.getSource()==getButtonArray()[10]){
+				x=11;
+				System.out.println("Button 11 pressed");
+			}else if(event.getSource()==getButtonArray()[11]){
+				x=12;
+				System.out.println("Button 12 pressed");
+			}else if(event.getSource()==getButtonArray()[12]){
+				x=13;
+				System.out.println("Button 13 pressed");
+			}else if(event.getSource()==getButtonArray()[13]){
+				x=14;
+				System.out.println("Button 14 pressed");
+			}else if(event.getSource()==getButtonArray()[14]){
+				x=15;
+				System.out.println("Button 15 pressed");
+			}
 		}
-	
+	}
 }
 	

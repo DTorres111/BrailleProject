@@ -1,9 +1,7 @@
 package eecs2311.simulator;
 
 import static org.junit.Assert.*;
-
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +15,7 @@ public class SimulatorTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		window= new SimulatorAPI(5,8);
+		window= new SimulatorAPI(5,8,2);
 		window.getFrame().setVisible(true);
 	
 	}
@@ -157,10 +155,9 @@ public class SimulatorTest {
 	
 	
 	@Test
-	public void getBUtton()
+	public void testButtonEvent()
 	{
 		window.getButtonArray()[0].doClick();
-		assertEquals(window.getButtonEvent(),1);
+		assertEquals(window.getX(),1);
 	}
-
 }
