@@ -55,7 +55,6 @@ public class Simulator extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(int buttons, int pins, int cells) {
-		System.out.printf("Cells: %d\n", cells);
 	/**
 	 * Setting size of arrays appropriately.
 	 * Max btnArray size is 15 elements.
@@ -125,9 +124,7 @@ public class Simulator extends JFrame{
 			  pin_panel.setBackground(new Color(150,164,228));
 			  cell_panel.add(pin_panel);
 			}
-		}
-		
-		if(cells==2)
+		}else if(cells==2||cells==3||cells==4||cells==5)
 		{
 			for(int i=0;i<=2;i++)
 			{
@@ -135,10 +132,9 @@ public class Simulator extends JFrame{
 			  pin_panel.setBackground(new Color(150,164,228));
 			  cell_panel.add(pin_panel);
 			}
-		}
-		if(cells==3)
+		}else if(cells==6||cells==7)
 		{
-			for(int w=0;w<=2;w++)
+			for(int i=0;i<=1;i++)
 			{
 			  pin_panel = new JPanel();
 			  pin_panel.setBackground(new Color(150,164,228));
@@ -155,8 +151,6 @@ public class Simulator extends JFrame{
 		    pin_panel = new JPanel();
 			pin_panel.setBackground(new Color(150,164,228));
 			pin_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			//pin_panel.setLayout(new GridLayout(4,2,0,0));
-			//pin_panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 			cell_panel.add(pin_panel);
 			
 			
@@ -184,21 +178,17 @@ public class Simulator extends JFrame{
 			  pin_panel.setBackground(new Color(150,164,228));
 			  cell_panel.add(pin_panel);
 			}
-		}
-		
-		if(cells==2)
+		}else if(cells==2||cells==3||cells==4||cells==5)
 		{
-			for(int w=0;w<=2;w++)
+			for(int i=0;i<=2;i++)
 			{
 			  pin_panel = new JPanel();
 			  pin_panel.setBackground(new Color(150,164,228));
 			  cell_panel.add(pin_panel);
 			}
-		}
-	
-		if(cells==3)
+		}else if(cells==6||cells==7)
 		{
-			for(int w=0;w<=2;w++)
+			for(int i=0;i<=1;i++)
 			{
 			  pin_panel = new JPanel();
 			  pin_panel.setBackground(new Color(150,164,228));

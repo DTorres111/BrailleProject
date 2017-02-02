@@ -8,7 +8,9 @@ public class SimulatorAPI extends Simulator{
 	TheHandler handler=new TheHandler();
 	private int x=0;
 	private int j=0;
-
+    private int pins;
+    private int cells;
+    private int buttons;
 	public int getX()
 	{
 		return x;
@@ -16,6 +18,9 @@ public class SimulatorAPI extends Simulator{
 	
 	public SimulatorAPI(int buttons, int pins, int cells){
       super(buttons,pins,cells);
+      this.buttons=buttons;
+      this.pins=pins;
+      this.cells=cells;
 		for(int i=0;i<buttons;i++){
 		getButtonArray()[i].addActionListener(handler);
 		}
@@ -26,6 +31,8 @@ public class SimulatorAPI extends Simulator{
 	
 	
 	public void setLetter(char letter, int cell){	
+		try{
+		if(cell<=cells&&cell>0){
 		switch(letter)
 		{
 		case 'a': 
@@ -170,7 +177,13 @@ public class SimulatorAPI extends Simulator{
 			setPin(6,cell);
 			break;
 			
-		}		
+		   }		
+		}else{
+			throw(new NoSuchCellException());
+		  }
+		}catch(NoSuchCellException ex){
+			System.out.println(ex.getMessage()+": cell("+cell+").");
+		}
 	}
 	
 	
@@ -198,8 +211,8 @@ public class SimulatorAPI extends Simulator{
 	// SETTING PINS
 	
 	public void setPin(int pinNumbr, int cellNumber){
-		
-		System.out.println(pinNumbr+" "+cellNumber);
+		try{
+	if(pinNumbr<=pins&&pinNumbr>0&&cellNumber<=cells&&cellNumber>0){
 		if(getPinArray()[cellNumber-1][pinNumbr-1].getBackground()==Color.RED){
 			getPinArray()[cellNumber-1][pinNumbr-1].setBackground(Color.GREEN);
 			}
@@ -207,8 +220,14 @@ public class SimulatorAPI extends Simulator{
 				getPinArray()[cellNumber-1][pinNumbr-1].setBackground(Color.RED);
 				
 			}
-		
+		}else{
+			throw(new NoSuchPinException());
+		}
+		}catch(NoSuchPinException ex){
+			System.out.println(ex.getMessage()+": pin("+pinNumbr+"), cell("+cellNumber+").");
+		}
 	}
+	
 	
 	
 	// RESET ALL PINS
@@ -227,14 +246,28 @@ public class SimulatorAPI extends Simulator{
 	
 	public void enableButton(int btnNumber)
 		{
+		try{
+		if(btnNumber<=pins&&btnNumber>0){
 			getButtonArray()[btnNumber-1].setEnabled(true);
+		}else throw(new NoSuchButtonException());
 		}
+		catch(NoSuchButtonException ex){
+			System.out.println(ex.getMessage()+": button("+btnNumber+")");
+		}
+	}
 	
 	
 	
 	public void disableButton(int btnNumber)
 		{
+		try{
+		if(btnNumber<=pins&&btnNumber>0){
 			getButtonArray()[btnNumber-1].setEnabled(false);
+		}else throw(new NoSuchButtonException());
+		}
+		catch(NoSuchButtonException ex){
+			System.out.println(ex.getMessage()+": button("+btnNumber+")");
+		}
 		}
 	
 	

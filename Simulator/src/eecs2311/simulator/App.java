@@ -8,7 +8,7 @@ public class App {
 	public static void main(String[] args) {
 		int count=0;
 		
-					SimulatorAPI window = new SimulatorAPI(6,8,3);
+					SimulatorAPI window = new SimulatorAPI(6,8,7);
 					window.getFrame().setVisible(true);
 					
 				//	window.setLetter('z');
@@ -44,8 +44,15 @@ public class App {
 					}
 				}
 				*/
-					window.enableAll();
 					//window.setWord("cat");
 					//window.setLetter('d', 4);
+					
+		
+					window.setLetter('s', 1);
+					window.setLetter('o', 2);
+					window.setLetter('s', 30);
+					window.setPin(9, 0);
+					window.enableButton(10);
+			
 	}
 }

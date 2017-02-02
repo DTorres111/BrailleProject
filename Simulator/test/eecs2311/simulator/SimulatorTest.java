@@ -15,7 +15,7 @@ public class SimulatorTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		window= new SimulatorAPI(5,8,2);
+		window= new SimulatorAPI(5,8,7);
 		window.getFrame().setVisible(true);
 	
 	}
@@ -85,8 +85,8 @@ public class SimulatorTest {
 	@Test
 	public void testSetPin3()
 	{
-		window.setPin(3,2);
-		assertEquals(window.getPinArray()[1][2].getBackground(),Color.GREEN);
+		window.setPin(3,20);
+		assertEquals(window.getPinArray()[1][2].getBackground(),Color.RED);
 	}
 	
 	
