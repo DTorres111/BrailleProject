@@ -8,11 +8,11 @@ public class App {
 	public static void main(String[] args) {
 		int count=0;
 		
-					SimulatorAPI window = new SimulatorAPI(6,8,1);
+					SimulatorAPI window = new SimulatorAPI(6,8,3);
 					window.getFrame().setVisible(true);
 					
 				//	window.setLetter('z');
-					System.out.println("If you think this is letter a, click Button 1. If you think it is z, click Button 2.");
+				/*	System.out.println("If you think this is letter a, click Button 1. If you think it is z, click Button 2.");
 					window.disableAll();
 					window.enableButton(1);
 					window.enableButton(2);
@@ -43,6 +43,9 @@ public class App {
 						System.out.println("Sorry that is incorrect.");
 					}
 				}
+				*/
 					window.enableAll();
+					//window.setWord("cat");
+					//window.setLetter('d', 4);
 	}
 }

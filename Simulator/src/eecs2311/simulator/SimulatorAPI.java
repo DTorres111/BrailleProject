@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 public class SimulatorAPI extends Simulator{
 	TheHandler handler=new TheHandler();
 	private int x=0;
+	private int j=0;
 
 	public int getX()
 	{
@@ -20,178 +21,208 @@ public class SimulatorAPI extends Simulator{
 		}
 	}
 	
-	/*
-	public void setLetter(char letter){	
+	
+	//SETTING A LETTER
+	
+	
+	public void setLetter(char letter, int cell){	
 		switch(letter)
 		{
-		case 'a': case 'A':
-			setPin(1);
+		case 'a': 
+			setPin(1,cell);
 			break;
 		
-		case 'b':case 'B':
-			setPin(1);
-			setPin(3);
+		case 'b':
+			setPin(1,cell);
+			setPin(3,cell);
 			
 			break;
-		case 'c': case 'C':
-			setPin(1);
-			setPin(2);
+		case 'c': 
+			setPin(1,cell);
+			setPin(2,cell);
 			
 			break;
-		case 'd':case 'D':
-			setPin(1);
-			setPin(2);
-			setPin(4);
+		case 'd':
+			setPin(1,cell);
+			setPin(2,cell);
+			setPin(4,cell);
 			break;
-		case 'e': case 'E':
-			setPin(1);
-			setPin(4);
+		case 'e': 
+			setPin(1,cell);
+			setPin(4,cell);
 			
 			break;
-		case 'f': case 'F':
-			setPin(1);
-			setPin(2);
-			setPin(3);
+		case 'f': 
+			setPin(1,cell);
+			setPin(2,cell);
+			setPin(3,cell);
 			break;
-		case 'g': case 'G':
-			setPin(1);
-			setPin(2);
-			setPin(3);
-			setPin(4);
+		case 'g': 
+			setPin(1,cell);
+			setPin(2,cell);
+			setPin(3,cell);
+			setPin(4,cell);
 			break;
-		case 'h': case 'H':
-			setPin(1);
-			setPin(3);
-			setPin(4);
+		case 'h': 
+			setPin(1,cell);
+			setPin(3,cell);
+			setPin(4,cell);
 			break;
-		case 'i': case 'I':
-			setPin(2);
-			setPin(3);
+		case 'i': 
+			setPin(2,cell);
+			setPin(3,cell);
 			break;
-		case 'j': case 'J':
-			setPin(2);
-			setPin(3);
-			setPin(4);
+		case 'j': 
+			setPin(2,cell);
+			setPin(3,cell);
+			setPin(4,cell);
 			break;
-		case 'k': case 'K':
-			setPin(1);
-			setPin(5);
+		case 'k':
+			setPin(1,cell);
+			setPin(5,cell);
 			
 			break;
-		case 'l': case 'L':
-			setPin(1);
-			setPin(3);
-			setPin(5);
+		case 'l': 
+			setPin(1,cell);
+			setPin(3,cell);
+			setPin(5,cell);
 			break;
-		case 'm': case 'M':
-			setPin(1);
-			setPin(2);
-			setPin(5);
+		case 'm':
+			setPin(1,cell);
+			setPin(2,cell);
+			setPin(5,cell);
 			break;
-		case 'n': case 'N':
-			setPin(1);
-			setPin(2);
-			setPin(4);
-			setPin(5);
+		case 'n': 
+			setPin(1,cell);
+			setPin(2,cell);
+			setPin(4,cell);
+			setPin(5,cell);
 			break;
-		case 'o': case 'O':
-			setPin(1);
-			setPin(4);
-			setPin(5);
+		case 'o': 
+			setPin(1,cell);
+			setPin(4,cell);
+			setPin(5,cell);
 			break;
-		case 'p': case 'P':
-			setPin(1);
-			setPin(2);
-			setPin(3);
-			setPin(5);
+		case 'p':
+			setPin(1,cell);
+			setPin(2,cell);
+			setPin(3,cell);
+			setPin(5,cell);
 			break;
-		case 'q': case 'Q':
-			setPin(1);
-			setPin(2);
-			setPin(3);
-			setPin(4);
-			setPin(5);
+		case 'q': 
+			setPin(1,cell);
+			setPin(2,cell);
+			setPin(3,cell);
+			setPin(4,cell);
+			setPin(5,cell);
 			break;
-		case 'r': case 'R':
-			setPin(1);
-			setPin(3);
-			setPin(4);
-			setPin(5);
+		case 'r': 
+			setPin(1,cell);
+			setPin(3,cell);
+			setPin(4,cell);
+			setPin(5,cell);
 			break;
-		case 's': case 'S':
-			setPin(2);
-			setPin(3);
-			setPin(5);
+		case 's': 
+			setPin(2,cell);
+			setPin(3,cell);
+			setPin(5,cell);
 			break;
-		case 't': case 'T':
-			setPin(2);
-			setPin(3);
-			setPin(4);
-			setPin(5);
+		case 't': 
+			setPin(2,cell);
+			setPin(3,cell);
+			setPin(4,cell);
+			setPin(5,cell);
 			break;
-		case 'u': case 'U':
-			setPin(1);
-			setPin(4);
-			setPin(5);
+		case 'u': 
+			setPin(1,cell);
+			setPin(4,cell);
+			setPin(5,cell);
 			break;
-		case 'v': case 'V':
-			setPin(1);
-			setPin(3);
-			setPin(5);
-			setPin(6);
+		case 'v': 
+			setPin(1,cell);
+			setPin(3,cell);
+			setPin(5,cell);
+			setPin(6,cell);
 			break;
-		case 'w':case 'W':
-			setPin(2);
-			setPin(3);
-			setPin(4);
-			setPin(6);
+		case 'w':
+			setPin(2,cell);
+			setPin(3,cell);
+			setPin(4,cell);
+			setPin(6,cell);
 			break;
-		case 'x': case 'X':
-			setPin(1);
-			setPin(2);
-			setPin(5);
-			setPin(6);
+		case 'x': 
+			setPin(1,cell);
+			setPin(2,cell);
+			setPin(5,cell);
+			setPin(6,cell);
 			break;
-		case 'y': case 'Y':
-			setPin(1);
-			setPin(2);
-			setPin(4);
-			setPin(5);
-			setPin(6);
+		case 'y':
+			setPin(1,cell);
+			setPin(2,cell);
+			setPin(4,cell);
+			setPin(5,cell);
+			setPin(6,cell);
 			break;
-		case 'z': case 'Z':
-			setPin(1);
-			setPin(4);
-			setPin(5);
-			setPin(6);
+		case 'z': 
+			setPin(1,cell);
+			setPin(4,cell);
+			setPin(5,cell);
+			setPin(6,cell);
 			break;
 			
 		}		
 	}
-	*/
 	
-	/*
-	public void setPin(int pinNumbr){
+	
+	
+	
+	// SETTING A WORD
+	
+	public void setWord(String word)
+	{
+		if(word.length()>getNumberOfCells())
+		{
+			System.out.println("Sorry! This word is too long to display");
+		}
+		else
+			for(int i=0;i<word.length();i++)
+			{
+				
+				setLetter(word.charAt(i),++j);
+				
+				
+			}
+	}
+	
+	
+	// SETTING PINS
+	
+	public void setPin(int pinNumbr, int cellNumber){
 		
-		if(getPinArray()[pinNumbr-1].getBackground()==Color.RED){
-			getPinArray()[pinNumbr-1].setBackground(Color.GREEN);
+		System.out.println(pinNumbr+" "+cellNumber);
+		if(getPinArray()[cellNumber-1][pinNumbr-1].getBackground()==Color.RED){
+			getPinArray()[cellNumber-1][pinNumbr-1].setBackground(Color.GREEN);
 			}
 		else{
-				getPinArray()[pinNumbr-1].setBackground(Color.RED);
+				getPinArray()[cellNumber-1][pinNumbr-1].setBackground(Color.RED);
 				
 			}
 		
 	}
-	*/
 	
-	/*
+	
+	// RESET ALL PINS
 	
 	public void resetPins(){
-		for(int i=0;i<getPinArray().length;i++){
-			getPinArray()[i].setBackground(Color.RED);	
+		
+		for(int j=0; j<getNumberOfCells();j++)
+		{
+		for(int i=0;i<getNumberOfPins();i++){
+			getPinArray()[j][i].setBackground(Color.RED);	
 		}	
+		}
 	}
-	*/	
+		
 	
 	
 	public void enableButton(int btnNumber)
@@ -210,20 +241,22 @@ public class SimulatorAPI extends Simulator{
 	
 	public void enableAll()
 		{
-			for(int x=0;x<numberOfButtons; x++)
+			for(int x=0;x<getNumberOfButtons(); x++)
 			{
 				getButtonArray()[x].setEnabled(true);
 			}
 		}
 	
 	
+	
 	public void disableAll()
 		{
-			for(int x=0;x<numberOfButtons; x++)
+			for(int x=0;x<getNumberOfButtons(); x++)
 			{
 				getButtonArray()[x].setEnabled(false);
 			}
 		}
+	
 	
 	public class TheHandler implements ActionListener{
 

@@ -22,6 +22,16 @@ public class SimulatorTest {
 	
 	
 	@Test
+	public void testSetPin()
+	{
+		window.setPin(1,2);
+		assertEquals(window.getPinArray()[1][0].getBackground(),Color.GREEN);
+	}
+	
+	
+	/*
+	
+	@Test
 	public void testSetletter()
 	{
 		window.setLetter('a');
@@ -63,49 +73,44 @@ public class SimulatorTest {
 	}
 	
 	
-	@Test
-	public void testSetPin()
-	{
-		window.setPin(1);
-		assertEquals(window.getPinArray()[0].getBackground(),Color.GREEN);
-	}
+	*/
 	
 	@Test
 	public void testSetPin2()
 	{
-		window.setPin(2);
-		assertEquals(window.getPinArray()[1].getBackground(),Color.GREEN);
+		window.setPin(2,2);
+		assertEquals(window.getPinArray()[1][1].getBackground(),Color.GREEN);
 	}
 	
 	@Test
 	public void testSetPin3()
 	{
-		window.setPin(3);
-		assertEquals(window.getPinArray()[2].getBackground(),Color.GREEN);
+		window.setPin(3,2);
+		assertEquals(window.getPinArray()[1][2].getBackground(),Color.GREEN);
 	}
 	
 	
 	@Test
 	public void testSetPin4()
 	{
-		window.setPin(4);
-		assertEquals(window.getPinArray()[3].getBackground(),Color.GREEN);
+		window.setPin(4,2);
+		assertEquals(window.getPinArray()[1][3].getBackground(),Color.GREEN);
 	}
 	
 	
 	@Test
 	public void testSetPin5()
 	{
-		window.setPin(5);
-		assertEquals(window.getPinArray()[4].getBackground(),Color.GREEN);
+		window.setPin(5,1);
+		assertEquals(window.getPinArray()[0][4].getBackground(),Color.GREEN);
 	}
 	
 	
 	@Test
 	public void testSetPin6()
 	{
-		window.setPin(6);
-		assertEquals(window.getPinArray()[5].getBackground(),Color.GREEN);
+		window.setPin(6,2);
+		assertEquals(window.getPinArray()[1][5].getBackground(),Color.GREEN);
 	}
 	
 	
@@ -160,4 +165,5 @@ public class SimulatorTest {
 		window.getButtonArray()[0].doClick();
 		assertEquals(window.getX(),1);
 	}
+	
 }

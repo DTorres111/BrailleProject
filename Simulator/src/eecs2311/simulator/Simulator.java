@@ -12,6 +12,8 @@ public class Simulator extends JFrame{
 	private JButton pinArray[][];
 	private JButton btnArray[];
 	public int numberOfButtons;
+	private int numberOfCells, numberOfPins;
+	
 	
 	
 	/**
@@ -20,6 +22,8 @@ public class Simulator extends JFrame{
 	public Simulator(int buttons, int pins, int cells) {
 		initialize(buttons, pins, cells);
 		numberOfButtons=buttons;
+		numberOfPins=pins;
+		numberOfCells= cells;
 	}
 
 	public JFrame getFrame(){
@@ -34,6 +38,16 @@ public class Simulator extends JFrame{
 	public int getNumberOfButtons()
 	{
 		return numberOfButtons;
+	}
+	
+	public int getNumberOfCells()
+	{
+		return numberOfCells;
+	}
+
+	public int getNumberOfPins()
+	{
+		return numberOfPins;
 	}
 
 	
@@ -61,7 +75,7 @@ public class Simulator extends JFrame{
 		frame = new JFrame("Brille Device Simulator");
 		frame.getContentPane().setBackground(new Color(150,164,228));
 		frame.setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 1025, 300);
+		frame.setBounds(100, 100, 1025, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		/**
@@ -69,7 +83,7 @@ public class Simulator extends JFrame{
 		 */
 		
 		JPanel cell_panel= new JPanel();
-		cell_panel.setBackground(Color.WHITE);
+		cell_panel.setBackground(new Color(150,164,228));
 		cell_panel.setLayout(new GridLayout(1, 0, 0, 0));
 
 	    JPanel button_panel = new JPanel();	    
@@ -101,21 +115,50 @@ public class Simulator extends JFrame{
 		);
 		
 		JPanel pin_panel;
-		JPanel filler;
-		filler=new JPanel();
-		filler.setBackground(Color.WHITE);
+		
+		
+		if(cells==1)
+		{
+			for(int i=0;i<=3;i++)
+			{
+			  pin_panel = new JPanel();
+			  pin_panel.setBackground(new Color(150,164,228));
+			  cell_panel.add(pin_panel);
+			}
+		}
+		
+		if(cells==2)
+		{
+			for(int i=0;i<=2;i++)
+			{
+			  pin_panel = new JPanel();
+			  pin_panel.setBackground(new Color(150,164,228));
+			  cell_panel.add(pin_panel);
+			}
+		}
+		if(cells==3)
+		{
+			for(int w=0;w<=2;w++)
+			{
+			  pin_panel = new JPanel();
+			  pin_panel.setBackground(new Color(150,164,228));
+			  cell_panel.add(pin_panel);
+			}
+		}
 		
 		for(int i=0;i<cells;i++){
 			
 			/**
 			 * Creates Cells.
 			 */
+		
 		    pin_panel = new JPanel();
-			pin_panel.setBackground(Color.WHITE);
-			//pin_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			pin_panel.setLayout(new GridLayout(4,2,0,0));
-			pin_panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+			pin_panel.setBackground(new Color(150,164,228));
+			pin_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			//pin_panel.setLayout(new GridLayout(4,2,0,0));
+			//pin_panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 			cell_panel.add(pin_panel);
+			
 			
 			/**
 			 * Creates Pins.
@@ -132,7 +175,36 @@ public class Simulator extends JFrame{
 					}
 				}
 		}
+		
+		if(cells==1)
+		{
+			for(int w=0;w<=3;w++)
+			{
+			  pin_panel = new JPanel();
+			  pin_panel.setBackground(new Color(150,164,228));
+			  cell_panel.add(pin_panel);
+			}
+		}
+		
+		if(cells==2)
+		{
+			for(int w=0;w<=2;w++)
+			{
+			  pin_panel = new JPanel();
+			  pin_panel.setBackground(new Color(150,164,228));
+			  cell_panel.add(pin_panel);
+			}
+		}
 	
+		if(cells==3)
+		{
+			for(int w=0;w<=2;w++)
+			{
+			  pin_panel = new JPanel();
+			  pin_panel.setBackground(new Color(150,164,228));
+			  cell_panel.add(pin_panel);
+			}
+		}
 		/**
 		 * Creates Buttons.
 		 */
@@ -142,6 +214,7 @@ public class Simulator extends JFrame{
 		btn.setFont(new Font("Arial", Font.BOLD, 9));
 		btn.setForeground(Color.WHITE);
 		btn.setBackground(Color.BLACK);
+		btn.setPreferredSize(new Dimension(110,40));
 		button_panel.add(btn);
 		btnArray[b]=btn;
 		frame.getContentPane().setLayout(groupLayout);
