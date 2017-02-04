@@ -3,7 +3,6 @@ package eecs2311.simulator;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class Simulator extends JFrame{
@@ -11,38 +10,80 @@ public class Simulator extends JFrame{
 	private JFrame frame;
 	private JButton pinArray[][];
 	private JButton btnArray[];
+	private int numberOfButtons, numberOfCells, numberOfPins;
 	
 	
-	
-	
-	/**
-	 * Create the application.
-	 */
+    /**
+     * Constructs a new Simulator object.
+     * Calls initialize method to create the frame with the given parameters.
+     * @param buttons is the number of buttons to be shown on the window.
+     * @param pins is the number of pins to be shown on the window.
+     * @param cells is the number of cells (set of pins) to be shown on the window.
+     */
 	public Simulator(int buttons, int pins, int cells) {
 		initialize(buttons, pins, cells);
-		
+
 	}
 
+	/**
+	 * Gets the frame created through initialize().
+	 * @return the created frame object of type JFrame.
+	 */
 	public JFrame getFrame(){
 		return frame;
 	}
+	/**
+	 * Gets the array of button objects.
+	 * @return the array of button objects of type JButton.
+	 */
 	public JButton[] getButtonArray(){
 		return btnArray;
 	}
+	/**
+	 * Gets the array of pin objects.
+	 * @return the array of pin objects of type JButton.
+	 */
 	public JButton[][] getPinArray(){
 		return pinArray;
 	}
-	
+	/**
+	 * Gets the number of buttons in the frame.
+	 * @return the number of buttons in the frame.
+	 */
+	public int getNumberOfButtons()
+	{
+		return numberOfButtons;
+	}
+	/**
+	 * Gets the number of cells in the frame.
+	 * @return the number of cells in the frame.
+	 */
+	public int getNumberOfCells()
+	{
+		return numberOfCells;
+	}
+	/**
+	 * Gets the number of pins in the frame.
+	 * @return the number of pins in the frame.
+	 */
+	public int getNumberOfPins()
+	{
+		return numberOfPins;
+	}
 
 	
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize the contents of the frame. Sets up the GUI and fills necessary arrays. Maximum buttons is
+	 * 15, maximum pins is 10, and maximum cells is 8.
+	 * @param buttons is the number of buttons to be created on the frame.
+	 * @param pins is the number of pins to be created on the frame.
+	 * @param cells is the number of cells to be created on the frame.
 	 */
 	private void initialize(int buttons, int pins, int cells) {
-	/**
+	/*
 	 * Setting size of arrays appropriately.
 	 * Max btnArray size is 15 elements.
-	 * Max pinArray size is 10 elements.
+	 * Max pinArray size is 8 elements by 10 elements.
 	 */
 		if(buttons<=15){
 		btnArray= new JButton[buttons];}
@@ -61,7 +102,7 @@ public class Simulator extends JFrame{
 		frame.setBounds(100, 100, 1025, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		/**
+		/*
 		 * Panels.
 		 */
 		
@@ -100,6 +141,10 @@ public class Simulator extends JFrame{
 		JPanel pin_panel;
 		
 		
+		/*
+		 * Filling frame with empty panels to make it look nicer.
+		 * These are the fillers before the actual cells.
+		 */
 		if(cells==1)
 		{
 			for(int i=0;i<=3;i++)
@@ -118,7 +163,7 @@ public class Simulator extends JFrame{
 			}
 		}else if(cells==6||cells==7)
 		{
-			for(int i=0;i<1;i++)
+			for(int i=0;i<=1;i++)
 			{
 			  pin_panel = new JPanel();
 			  pin_panel.setBackground(new Color(150,164,228));
@@ -126,19 +171,19 @@ public class Simulator extends JFrame{
 			}
 		}
 		
+		if(cells<=8){
 		for(int i=0;i<cells;i++){
 			
-			/**
+			/*
 			 * Creates Cells.
 			 */
-		
 		    pin_panel = new JPanel();
 			pin_panel.setBackground(new Color(150,164,228));
 			pin_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			cell_panel.add(pin_panel);
+		
 			
-			
-			/**
+			/*
 			 * Creates Pins.
 			 */
 			for(int p=0; p<pins ;p++){
@@ -150,9 +195,43 @@ public class Simulator extends JFrame{
 				pin.setText(" ");
 				pin_panel.add(pin);
 			    pinArray[i][p]=pin;
-					}
+				 }
 				}
+		 }
+		}else{
+			
+			for(int i=0;i<8;i++){
+				
+				/*
+				 * Creates Cells.
+				 */
+			    pin_panel = new JPanel();
+				pin_panel.setBackground(new Color(150,164,228));
+				pin_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+				cell_panel.add(pin_panel);
+			
+				
+				/*
+				 * Creates Pins.
+				 */
+				for(int p=0; p<pins ;p++){
+					if(p<10){
+					JButton pin = new JButton("");
+					pin.setEnabled(false);
+					pin.setBackground(Color.RED);
+					pin.setForeground(Color.RED);
+					pin.setText(" ");
+					pin_panel.add(pin);
+				    pinArray[i][p]=pin;
+					 }
+					}
+			 }
 		}
+		
+		/*
+		 * Filling frame with empty panels to make it look nicer.
+		 * These are the fillers after the actual cells.
+		 */
 		
 		if(cells==1)
 		{
@@ -172,18 +251,19 @@ public class Simulator extends JFrame{
 			}
 		}else if(cells==6||cells==7)
 		{
-			for(int i=0;i<1;i++)
+			for(int i=0;i<=1;i++)
 			{
 			  pin_panel = new JPanel();
 			  pin_panel.setBackground(new Color(150,164,228));
 			  cell_panel.add(pin_panel);
 			}
 		}
-		/**
+		/*
 		 * Creates Buttons.
+		 * Maximum of 15.
 		 */
+		if(buttons<=15){
 		for(int b=0;b<buttons;b++){
-	    if(b<15){
 		JButton btn = new JButton("Button "+ (b+1));
 		btn.setFont(new Font("Arial", Font.BOLD, 9));
 		btn.setForeground(Color.WHITE);
@@ -192,8 +272,20 @@ public class Simulator extends JFrame{
 		button_panel.add(btn);
 		btnArray[b]=btn;
 		frame.getContentPane().setLayout(groupLayout);
-	    }
+	   
 			}
-		}
-
+		}else{
+			for(int b=0;b<15;b++){
+				JButton btn = new JButton("Button "+ (b+1));
+				btn.setFont(new Font("Arial", Font.BOLD, 9));
+				btn.setForeground(Color.WHITE);
+				btn.setBackground(Color.BLACK);
+				btn.setPreferredSize(new Dimension(110,40));
+				button_panel.add(btn);
+				btnArray[b]=btn;
+				frame.getContentPane().setLayout(groupLayout);
+			   
+					}	
+		 }
+	}
 }

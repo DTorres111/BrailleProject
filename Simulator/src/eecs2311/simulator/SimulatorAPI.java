@@ -9,54 +9,53 @@ public class SimulatorAPI extends Simulator{
 	private int x=0;
 	private int j=0;
     private int pins;
-    private int cells,cellNum;
-    private int buttons,buttonNumber=0;
-    public int numberOfButtons;
-	private int numberOfCells, numberOfPins;
-	
+    private int cells;
+    private int buttons;
+    
+    /**
+     * Gets variable x.
+     * @return indication of which button was pressed.
+     */
 	public int getX()
 	{
 		return x;
 	}
 	
-	public int getcellNum()
-	{
-		return cellNum;
-	}
-	
-	public int getButtonNumber()
-	{
-		return buttonNumber;
-	}
-	
-	public int getNumberOfButtons()
-	{
-		
-		return numberOfButtons;
-		
-	}
-	
-	public int getNumberOfCells()
-	{
-		return numberOfCells;
-	}
-
-	public int getNumberOfPins()
-	{
-		return numberOfPins;
-	}
-	
+    /**
+     * Constructs a new SimulatorAPI object.
+     * @param buttons is the number of buttons to be shown on the window.
+     * @param pins is the number of pins to be shown on the window.
+     * @param cells is the number of cells (set of pins) to be shown on the window.
+     */
 	public SimulatorAPI(int buttons, int pins, int cells){
       super(buttons,pins,cells);
-      this.buttons=buttons;
-      this.pins=pins;
-      this.cells=cells;
       
-      	numberOfButtons=buttons;
-		numberOfPins=pins;
-		numberOfCells= cells;
+      if(buttons<=15){
+      this.buttons=buttons;
+      }else{
+      this.buttons=15;  
+      }
+      if(pins<=10){
+      this.pins=pins;
+      }else{
+      this.pins=10;
+      }
+      if(cells<=8){
+      this.cells=cells;
+      }else{
+          this.cells=8;
+          }
+      /*
+       * Handling events for buttons.
+       * Max # of buttons is 15.
+       */
+      if(buttons<=15){
 		for(int i=0;i<buttons;i++){
 		getButtonArray()[i].addActionListener(handler);
+		}}else{
+			for(int i=0;i<15;i++){
+				getButtonArray()[i].addActionListener(handler);
+			}
 		}
 	}
 	
@@ -64,6 +63,11 @@ public class SimulatorAPI extends Simulator{
 	//SETTING A LETTER
 	
 	
+    /**
+     * Sets a combination of pins at a particular cell to represent a letter.
+     * @param letter is the character to be set at the desired cell.
+     * @param cell is the number of the cell at which to set the letter.
+     */
 	public void setLetter(char letter, int cell){	
 		try{
 		if(cell<=cells&&cell>0){
@@ -213,7 +217,7 @@ public class SimulatorAPI extends Simulator{
 			
 		   }		
 		}else{
-			throw(new NoSuchCellException());
+			throw(new NoSuchCellException()); 
 		  }
 		}catch(NoSuchCellException ex){
 			System.out.println(ex.getMessage()+": cell("+cell+").");
@@ -224,10 +228,13 @@ public class SimulatorAPI extends Simulator{
 	
 	
 	// SETTING A WORD
-	
+    /**
+     * Sets a combination of pins at a each cell to represent a word.
+     * @param word is the word string to be displayed.
+     */
 	public void setWord(String word)
 	{
-		if(word.length()>getNumberOfCells())
+		if(word.length()>cells)
 		{
 			System.out.println("Sorry! This word is too long to display");
 		}
@@ -239,14 +246,18 @@ public class SimulatorAPI extends Simulator{
 				
 				
 			}
+		j=0;
 	}
 	
 	
 	// SETTING PINS
-	
+    /**
+     * Sets a particular pin at a particular cell to green if it was red or red if it was green.
+     * @param pinNumbr is the number of the pin to set. 
+     * @param cellNumber is the number of the cell in which the desired pin is. 
+     */
 	public void setPin(int pinNumbr, int cellNumber){
 		try{
-			cellNum= cellNumber;
 	if(pinNumbr<=pins&&pinNumbr>0&&cellNumber<=cells&&cellNumber>0){
 		if(getPinArray()[cellNumber-1][pinNumbr-1].getBackground()==Color.RED){
 			getPinArray()[cellNumber-1][pinNumbr-1].setBackground(Color.GREEN);
@@ -266,26 +277,28 @@ public class SimulatorAPI extends Simulator{
 	
 	
 	// RESET ALL PINS
-	
+	/**
+	 * Makes the color of every pin red.
+	 */
 	public void resetPins(){
 		
-		for(int j=0; j<getNumberOfCells();j++)
+		for(int j=0; j<cells;j++)
 		{
-		for(int i=0;i<getNumberOfPins();i++){
+		for(int i=0;i<pins;i++){
 			getPinArray()[j][i].setBackground(Color.RED);	
 		}	
 		}
 	}
 		
 	
-	
-	
+	/**
+	 * Enables a button to be pressed/clicked.
+	 * @param btnNumber is the number of the button to be enabled.
+	 */
 	public void enableButton(int btnNumber)
 		{
-		buttonNumber=btnNumber;
 		try{
-			
-		if(btnNumber<=numberOfButtons&&btnNumber>0){
+		if(btnNumber<=pins&&btnNumber>0){
 			getButtonArray()[btnNumber-1].setEnabled(true);
 		}else throw(new NoSuchButtonException());
 		}
@@ -295,13 +308,14 @@ public class SimulatorAPI extends Simulator{
 	}
 	
 	
-	
+	/**
+	 * Disables a button so it cannot be pressed/clicked.
+	 * @param btnNumber is the number of the button to be disabled.
+	 */
 	public void disableButton(int btnNumber)
 		{
-		buttonNumber=btnNumber;
 		try{
-			
-		if(btnNumber<=numberOfButtons&&btnNumber>0){
+		if(btnNumber<=buttons&&btnNumber>0){
 			getButtonArray()[btnNumber-1].setEnabled(false);
 		}else throw(new NoSuchButtonException());
 		}
@@ -311,20 +325,25 @@ public class SimulatorAPI extends Simulator{
 		}
 	
 	
-	
+	/**
+	 * Enables every button.
+	 */
 	public void enableAll()
 		{
-			for(int x=0;x<getNumberOfButtons(); x++)
+		
+			for(int x=0;x<buttons; x++)
 			{
 				getButtonArray()[x].setEnabled(true);
 			}
 		}
 	
 	
-	
+	/**
+	 * Disables every button.
+	 */
 	public void disableAll()
 		{
-			for(int x=0;x<getNumberOfButtons(); x++)
+			for(int x=0;x<buttons; x++)
 			{
 				getButtonArray()[x].setEnabled(false);
 			}
@@ -333,6 +352,11 @@ public class SimulatorAPI extends Simulator{
 	
 	public class TheHandler implements ActionListener{
 
+		/**
+		 * Catches and handles events from pressing/clicking buttons.
+		 * Prints which button was pressed to the console.
+		 * @param event is the button event to be handled.
+		 */
 		public void actionPerformed(ActionEvent event){
 			if(event.getSource()==getButtonArray()[0]){
 				x=1;
@@ -387,4 +411,3 @@ public class SimulatorAPI extends Simulator{
 		}
 	}
 }
-	
