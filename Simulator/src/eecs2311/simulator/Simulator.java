@@ -10,7 +10,7 @@ public class Simulator extends JFrame{
 	private JFrame frame;
 	private JButton pinArray[][];
 	private JButton btnArray[];
-	private int numberOfButtons, numberOfCells, numberOfPins;
+
 	
 	
     /**
@@ -22,7 +22,6 @@ public class Simulator extends JFrame{
      */
 	public Simulator(int buttons, int pins, int cells) {
 		initialize(buttons, pins, cells);
-
 	}
 
 	/**
@@ -45,30 +44,6 @@ public class Simulator extends JFrame{
 	 */
 	public JButton[][] getPinArray(){
 		return pinArray;
-	}
-	/**
-	 * Gets the number of buttons in the frame.
-	 * @return the number of buttons in the frame.
-	 */
-	public int getNumberOfButtons()
-	{
-		return numberOfButtons;
-	}
-	/**
-	 * Gets the number of cells in the frame.
-	 * @return the number of cells in the frame.
-	 */
-	public int getNumberOfCells()
-	{
-		return numberOfCells;
-	}
-	/**
-	 * Gets the number of pins in the frame.
-	 * @return the number of pins in the frame.
-	 */
-	public int getNumberOfPins()
-	{
-		return numberOfPins;
 	}
 
 	

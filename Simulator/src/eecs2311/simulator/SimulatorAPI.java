@@ -20,6 +20,15 @@ public class SimulatorAPI extends Simulator{
 	{
 		return x;
 	}
+	/**
+	 * Gets the number of buttons in the frame.
+	 * @return the number of buttons in the frame.
+	 */
+	public int getNumberOfButtons()
+	{
+		return buttons;
+	}
+
 	
     /**
      * Constructs a new SimulatorAPI object.

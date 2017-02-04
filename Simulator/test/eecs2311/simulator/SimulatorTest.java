@@ -573,12 +573,7 @@ public class SimulatorTest {
 	@Test
 	public void testButton2Event() {
 		window.getButtonArray()[1].doClick();
-		if(window.getNumberOfButtons()<2)
-		{
-			assertEquals(1,1);
-		}
-		else
-		assertEquals(window.getX(), 1);
+		assertEquals(window.getX(), 2);
 	}
 	
 	
@@ -586,73 +581,42 @@ public class SimulatorTest {
 	@Test
 	public void testButton3Event() {
 		window.getButtonArray()[2].doClick();
-		if(window.getNumberOfButtons()<3)
-		{
-			assertEquals(1,1);
-		}
-		else
-		assertEquals(window.getX(), 1);
+		assertEquals(window.getX(), 3);
 	}
 	
 	
 	@Test
 	public void testButton4Event() {
 		window.getButtonArray()[3].doClick();
-		if(window.getNumberOfButtons()<4)
-		{
-			assertEquals(1,1);
-		}
-		else
-		assertEquals(window.getX(), 1);
+		assertEquals(window.getX(), 4);
 	}
 	
 	
 	@Test
 	public void testButton5Event() {
 		window.getButtonArray()[4].doClick();
-		if(window.getNumberOfButtons()<5)
-		{
-			assertEquals(1,1);
-		}
-		else
-		assertEquals(window.getX(), 1);
+		assertEquals(window.getX(), 5);
 	}
 	
 	
 	@Test
 	public void testButton6Event() {
 		window.getButtonArray()[5].doClick();
-		if(window.getNumberOfButtons()<5)
-		{
-			assertEquals(1,1);
-		}
-		else
-		assertEquals(window.getX(), 1);
+		assertEquals(window.getX(), 6);
 	}
 	
 	
 	@Test
 	public void testButton7Event() {
 		window.getButtonArray()[6].doClick();
-		if(window.getNumberOfButtons()<6)
-		{
-			assertEquals(1,1);
-		}
-		else
-		
-		assertEquals(window.getX(), 1);
+		assertEquals(window.getX(), 7);
 	}
 	
 	
 	@Test
 	public void testButton8Event() {
 		window.getButtonArray()[7].doClick();
-		if(window.getNumberOfButtons()<7)
-		{
-			assertEquals(1,1);
-		}
-		else
-		assertEquals(window.getX(), 1);
+		assertEquals(window.getX(), 8);
 	
 	}
 }
