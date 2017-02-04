@@ -9,11 +9,41 @@ public class SimulatorAPI extends Simulator{
 	private int x=0;
 	private int j=0;
     private int pins;
-    private int cells;
-    private int buttons;
+    private int cells,cellNum;
+    private int buttons,buttonNumber=0;
+    public int numberOfButtons;
+	private int numberOfCells, numberOfPins;
+	
 	public int getX()
 	{
 		return x;
+	}
+	
+	public int getcellNum()
+	{
+		return cellNum;
+	}
+	
+	public int getButtonNumber()
+	{
+		return buttonNumber;
+	}
+	
+	public int getNumberOfButtons()
+	{
+		
+		return numberOfButtons;
+		
+	}
+	
+	public int getNumberOfCells()
+	{
+		return numberOfCells;
+	}
+
+	public int getNumberOfPins()
+	{
+		return numberOfPins;
 	}
 	
 	public SimulatorAPI(int buttons, int pins, int cells){
@@ -21,6 +51,10 @@ public class SimulatorAPI extends Simulator{
       this.buttons=buttons;
       this.pins=pins;
       this.cells=cells;
+      
+      	numberOfButtons=buttons;
+		numberOfPins=pins;
+		numberOfCells= cells;
 		for(int i=0;i<buttons;i++){
 		getButtonArray()[i].addActionListener(handler);
 		}
@@ -212,6 +246,7 @@ public class SimulatorAPI extends Simulator{
 	
 	public void setPin(int pinNumbr, int cellNumber){
 		try{
+			cellNum= cellNumber;
 	if(pinNumbr<=pins&&pinNumbr>0&&cellNumber<=cells&&cellNumber>0){
 		if(getPinArray()[cellNumber-1][pinNumbr-1].getBackground()==Color.RED){
 			getPinArray()[cellNumber-1][pinNumbr-1].setBackground(Color.GREEN);
@@ -244,10 +279,13 @@ public class SimulatorAPI extends Simulator{
 		
 	
 	
+	
 	public void enableButton(int btnNumber)
 		{
+		buttonNumber=btnNumber;
 		try{
-		if(btnNumber<=pins&&btnNumber>0){
+			
+		if(btnNumber<=numberOfButtons&&btnNumber>0){
 			getButtonArray()[btnNumber-1].setEnabled(true);
 		}else throw(new NoSuchButtonException());
 		}
@@ -260,8 +298,10 @@ public class SimulatorAPI extends Simulator{
 	
 	public void disableButton(int btnNumber)
 		{
+		buttonNumber=btnNumber;
 		try{
-		if(btnNumber<=pins&&btnNumber>0){
+			
+		if(btnNumber<=numberOfButtons&&btnNumber>0){
 			getButtonArray()[btnNumber-1].setEnabled(false);
 		}else throw(new NoSuchButtonException());
 		}

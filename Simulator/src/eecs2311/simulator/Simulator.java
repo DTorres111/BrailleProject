@@ -11,8 +11,7 @@ public class Simulator extends JFrame{
 	private JFrame frame;
 	private JButton pinArray[][];
 	private JButton btnArray[];
-	public int numberOfButtons;
-	private int numberOfCells, numberOfPins;
+	
 	
 	
 	
@@ -21,9 +20,7 @@ public class Simulator extends JFrame{
 	 */
 	public Simulator(int buttons, int pins, int cells) {
 		initialize(buttons, pins, cells);
-		numberOfButtons=buttons;
-		numberOfPins=pins;
-		numberOfCells= cells;
+		
 	}
 
 	public JFrame getFrame(){
@@ -35,20 +32,7 @@ public class Simulator extends JFrame{
 	public JButton[][] getPinArray(){
 		return pinArray;
 	}
-	public int getNumberOfButtons()
-	{
-		return numberOfButtons;
-	}
 	
-	public int getNumberOfCells()
-	{
-		return numberOfCells;
-	}
-
-	public int getNumberOfPins()
-	{
-		return numberOfPins;
-	}
 
 	
 	/**
@@ -134,7 +118,7 @@ public class Simulator extends JFrame{
 			}
 		}else if(cells==6||cells==7)
 		{
-			for(int i=0;i<=1;i++)
+			for(int i=0;i<1;i++)
 			{
 			  pin_panel = new JPanel();
 			  pin_panel.setBackground(new Color(150,164,228));
@@ -188,7 +172,7 @@ public class Simulator extends JFrame{
 			}
 		}else if(cells==6||cells==7)
 		{
-			for(int i=0;i<=1;i++)
+			for(int i=0;i<1;i++)
 			{
 			  pin_panel = new JPanel();
 			  pin_panel.setBackground(new Color(150,164,228));

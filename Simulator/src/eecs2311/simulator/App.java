@@ -8,7 +8,7 @@ public class App {
 	public static void main(String[] args) {
 		int count=0;
 		
-					SimulatorAPI window = new SimulatorAPI(6,8,7);
+					SimulatorAPI window = new SimulatorAPI(6,8,5);
 					window.getFrame().setVisible(true);
 					
 				//	window.setLetter('z');
