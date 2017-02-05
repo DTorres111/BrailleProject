@@ -251,9 +251,7 @@ public class SimulatorAPI extends Simulator{
 			for(int i=0;i<word.length();i++)
 			{
 				
-				setLetter(word.charAt(i),++j);
-				
-				
+				setLetter(word.charAt(i),++j);	
 			}
 		j=0;
 	}
