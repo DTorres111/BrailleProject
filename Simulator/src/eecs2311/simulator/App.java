@@ -11,10 +11,9 @@ public class App {
 					SimulatorAPI window = new SimulatorAPI(6,8,5);
 					window.getFrame().setVisible(true);
 					
-					//window.setLetter('a', 1);
-					//window.setLetter('o', 2);
-					//window.setLetter('s', 3);
-					window.setWord("list");
+					window.setLetter('a', 1);
+					window.setLetter('o', 2);
+					window.setLetter('s', 3);
 					window.setPin(8, 8);
 					window.enableButton(6);
 			
