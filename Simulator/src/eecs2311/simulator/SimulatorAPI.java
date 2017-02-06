@@ -305,7 +305,7 @@ public class SimulatorAPI extends Simulator{
 	public void enableButton(int btnNumber)
 		{
 		try{
-		if(btnNumber<=pins&&btnNumber>0){
+		if(btnNumber<=buttons&&btnNumber>0){
 			getButtonArray()[btnNumber-1].setEnabled(true);
 		}else throw(new NoSuchButtonException());
 		}
