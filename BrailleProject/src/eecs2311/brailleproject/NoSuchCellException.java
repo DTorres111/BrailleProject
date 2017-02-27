@@ -1,4 +1,4 @@
-package eecs2311.simulator;
+package eecs2311.brailleproject;
 
 public class NoSuchCellException extends Exception {
 
