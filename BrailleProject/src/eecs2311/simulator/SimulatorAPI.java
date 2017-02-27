@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SimulatorAPI extends Simulator{
+public class SimulatorAPI extends OurSimlator{
 	TheHandler handler=new TheHandler();
 	private int x=0;
 	private int j=0;

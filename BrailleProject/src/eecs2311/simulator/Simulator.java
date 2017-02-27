@@ -1,266 +1,199 @@
 package eecs2311.simulator;
 
-import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class Simulator extends JFrame{
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
+/**
+ * This class simulates the hardware for a device with physical Braille cells
+ * and programmable buttons.
+ * <p>
+ * The constructor initializes the window and takes as arguments the number of
+ * Braille Cells and the number of buttons the simulator should display. This
+ * class also contains several methods that allow for the manipulation of the
+ * Simulator.
+ * <p>
+ * The individual Braille Cells can be accessed using the
+ * <code> getCell(int)</code> method and the cell's index. The cells are indexed
+ * from left to right and top to bottom. Similarly, the buttons can be accessed
+ * using the <code> getButton(int)</code> method, and they are indexed from left
+ * to right. Both of these methods return the actual reference of the objects
+ * displayed in the frame, meaning you can then call methods from each of the
+ * object's respective classes to manipulate them. For example, you can call
+ * <code> displayCharacter(char)</code> on any specific cell to display a character
+ * on that cell. You can also, in a similar fashion, use the
+ * <code> getButton(int) </code> method to get the reference of a specific
+ * button. Then, you can call any methods specified in the JButton class on that
+ * button, such as the <code> addActionListener() </code> method.
+ * 
+ * @author Team 4: Yassin Mohamed, Qassim Allauddin, Derek Li, Artem Solovey.
+ *
+ */
+public class Simulator {
+
+	int brailleCellNumber;
+	int jButtonNumber;
 	private JFrame frame;
-	private JButton pinArray[][];
-	private JButton btnArray[];
-
-	
-	
-    /**
-     * Constructs a new Simulator object.
-     * Calls initialize method to create the frame with the given parameters.
-     * @param buttons is the number of buttons to be shown on the window.
-     * @param pins is the number of pins to be shown on the window.
-     * @param cells is the number of cells (set of pins) to be shown on the window.
-     */
-	public Simulator(int buttons, int pins, int cells) {
-		initialize(buttons, pins, cells);
-	}
+	private GridLayout cellGrid = new GridLayout(4, 2);
+	LinkedList<JPanel> panelList = new LinkedList<JPanel>();
+	ArrayList<JRadioButton> pins = new ArrayList<JRadioButton>(8);
+	LinkedList<ArrayList<JRadioButton>> pinList = new LinkedList<ArrayList<JRadioButton>>();
+	LinkedList<JButton> buttonList = new LinkedList<JButton>();
+	LinkedList<BrailleCell> brailleList = new LinkedList<BrailleCell>();
+	JPanel southPanel = new JPanel();
+	JPanel centerPanel = new JPanel();
 
 	/**
-	 * Gets the frame created through initialize().
-	 * @return the created frame object of type JFrame.
+	 * Creates and displays a window with <code>brailleCellNumber</code>
+	 * Braille cells and <code>jButtonNumber</code> buttons. The two parameters must be
+	 * positive integers.
+	 * 
+	 * @param brailleCellNumber
+	 *            the number of braille cells the Simulator should have
+	 * @param jButtonNumber
+	 *            the number of buttons the Simulator should have
+	 * @throws IllegalArgumentException
+	 *             if one or both of the two parameters is negative or 0
 	 */
-	public JFrame getFrame(){
-		return frame;
-	}
-	/**
-	 * Gets the array of button objects.
-	 * @return the array of button objects of type JButton.
-	 */
-	public JButton[] getButtonArray(){
-		return btnArray;
-	}
-	/**
-	 * Gets the array of pin objects.
-	 * @return the array of pin objects of type JButton.
-	 */
-	public JButton[][] getPinArray(){
-		return pinArray;
-	}
+	public Simulator(int brailleCellNumber, int jButtonNumber) {
 
-	
-	/**
-	 * Initialize the contents of the frame. Sets up the GUI and fills necessary arrays. Maximum buttons is
-	 * 15, maximum pins is 10, and maximum cells is 8.
-	 * @param buttons is the number of buttons to be created on the frame.
-	 * @param pins is the number of pins to be created on the frame.
-	 * @param cells is the number of cells to be created on the frame.
-	 */
-	private void initialize(int buttons, int pins, int cells) {
-	/*
-	 * Setting size of arrays appropriately.
-	 * Max btnArray size is 15 elements.
-	 * Max pinArray size is 8 elements by 10 elements.
-	 */
-		if(buttons<=15){
-		btnArray= new JButton[buttons];}
-		else{
-			btnArray= new JButton[15];
-		}
-		if(pins<=10&&cells<=8){
-		pinArray= new JButton[cells][pins];
-		}else{
-		pinArray= new JButton[8][10];
-		}
-		
-		frame = new JFrame("Brille Device Simulator");
-		frame.getContentPane().setBackground(new Color(150,164,228));
-		frame.setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 1025, 500);
+		if (brailleCellNumber <= 0 || jButtonNumber <= 0)
+			throw new IllegalArgumentException("Non-positive integer entered.");
+
+		this.brailleCellNumber = brailleCellNumber;
+		this.jButtonNumber = jButtonNumber;
+		frame = new JFrame();
+		frame.setTitle("Simulator");
+		frame.setBounds(100, 100, 627, 459);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		/*
-		 * Panels.
-		 */
-		
-		JPanel cell_panel= new JPanel();
-		cell_panel.setBackground(new Color(150,164,228));
-		cell_panel.setLayout(new GridLayout(1, 0, 0, 0));
+		frame.getContentPane().setLayout(new BorderLayout());
 
-	    JPanel button_panel = new JPanel();	    
-	    button_panel.setBackground(new Color(45,89,135));
-	    button_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-	    
-		
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(1)
-							.addComponent(button_panel, GroupLayout.PREFERRED_SIZE, 1000, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(1)
-							.addComponent(cell_panel, GroupLayout.PREFERRED_SIZE, 1000, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addGap(3)
-					.addComponent(cell_panel, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(button_panel, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
-					.addGap(1))
-		);
-		
-		JPanel pin_panel;
-		
-		
-		/*
-		 * Filling frame with empty panels to make it look nicer.
-		 * These are the fillers before the actual cells.
-		 */
-		if(cells==1)
-		{
-			for(int i=0;i<=3;i++)
-			{
-			  pin_panel = new JPanel();
-			  pin_panel.setBackground(new Color(150,164,228));
-			  cell_panel.add(pin_panel);
+		for (int i = 0; i < brailleCellNumber; i++) {
+
+			JPanel panel = new JPanel(cellGrid);
+
+			for (int j = 0; j < 8; j++) {
+				JRadioButton radioButton = new JRadioButton();
+				radioButton.setEnabled(false);
+				radioButton.setSize(25, 25);
+				pins.add(radioButton);
+				panel.add(radioButton);
+				panel.repaint();
 			}
-		}else if(cells==2||cells==3||cells==4||cells==5)
-		{
-			for(int i=0;i<=2;i++)
-			{
-			  pin_panel = new JPanel();
-			  pin_panel.setBackground(new Color(150,164,228));
-			  cell_panel.add(pin_panel);
-			}
-		}else if(cells==6||cells==7)
-		{
-			for(int i=0;i<=1;i++)
-			{
-			  pin_panel = new JPanel();
-			  pin_panel.setBackground(new Color(150,164,228));
-			  cell_panel.add(pin_panel);
-			}
+
+			panel.setVisible(true);
+			pinList.add(pins);
+
+			BrailleCell cell = new BrailleCell(pins.get(0), pins.get(1), pins.get(2), pins.get(3), pins.get(4),
+					pins.get(5), pins.get(6), pins.get(7));
+			panelList.add(panel);
+			brailleList.add(cell);
+			panel.setSize(50, 50);
+			panel.setBorder(BorderFactory.createLineBorder(Color.black));
+			centerPanel.add(panel);
+
+			pins.clear();
+			if (i == (brailleCellNumber - 1))
+				frame.getContentPane().add(centerPanel, BorderLayout.CENTER);
+
 		}
-		
-		if(cells<=8){
-		for(int i=0;i<cells;i++){
-			
-			/*
-			 * Creates Cells.
-			 */
-		    pin_panel = new JPanel();
-			pin_panel.setBackground(new Color(150,164,228));
-			pin_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-			cell_panel.add(pin_panel);
-		
-			
-			/*
-			 * Creates Pins.
-			 */
-			for(int p=0; p<pins ;p++){
-				if(p<10){
-				JButton pin = new JButton("");
-				pin.setEnabled(false);
-				pin.setBackground(Color.RED);
-				pin.setForeground(Color.RED);
-				pin.setText(" ");
-				pin_panel.add(pin);
-			    pinArray[i][p]=pin;
-				 }
-				}
-		 }
-		}else{
-			
-			for(int i=0;i<8;i++){
-				
-				/*
-				 * Creates Cells.
-				 */
-			    pin_panel = new JPanel();
-				pin_panel.setBackground(new Color(150,164,228));
-				pin_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-				cell_panel.add(pin_panel);
-			
-				
-				/*
-				 * Creates Pins.
-				 */
-				for(int p=0; p<pins ;p++){
-					if(p<10){
-					JButton pin = new JButton("");
-					pin.setEnabled(false);
-					pin.setBackground(Color.RED);
-					pin.setForeground(Color.RED);
-					pin.setText(" ");
-					pin_panel.add(pin);
-				    pinArray[i][p]=pin;
-					 }
-					}
-			 }
+
+		for (int i = 0; i < jButtonNumber; i++) {
+			JButton button = new JButton("" + i);
+			buttonList.add(button);
+
+			southPanel.add(button);
 		}
-		
-		/*
-		 * Filling frame with empty panels to make it look nicer.
-		 * These are the fillers after the actual cells.
-		 */
-		
-		if(cells==1)
-		{
-			for(int w=0;w<=3;w++)
-			{
-			  pin_panel = new JPanel();
-			  pin_panel.setBackground(new Color(150,164,228));
-			  cell_panel.add(pin_panel);
-			}
-		}else if(cells==2||cells==3||cells==4||cells==5)
-		{
-			for(int i=0;i<=2;i++)
-			{
-			  pin_panel = new JPanel();
-			  pin_panel.setBackground(new Color(150,164,228));
-			  cell_panel.add(pin_panel);
-			}
-		}else if(cells==6||cells==7)
-		{
-			for(int i=0;i<=1;i++)
-			{
-			  pin_panel = new JPanel();
-			  pin_panel.setBackground(new Color(150,164,228));
-			  cell_panel.add(pin_panel);
-			}
-		}
-		/*
-		 * Creates Buttons.
-		 * Maximum of 15.
-		 */
-		if(buttons<=15){
-		for(int b=0;b<buttons;b++){
-		JButton btn = new JButton("Button "+ (b+1));
-		btn.setFont(new Font("Arial", Font.BOLD, 9));
-		btn.setForeground(Color.WHITE);
-		btn.setBackground(Color.BLACK);
-		btn.setPreferredSize(new Dimension(110,40));
-		button_panel.add(btn);
-		btnArray[b]=btn;
-		frame.getContentPane().setLayout(groupLayout);
-	   
-			}
-		}else{
-			for(int b=0;b<15;b++){
-				JButton btn = new JButton("Button "+ (b+1));
-				btn.setFont(new Font("Arial", Font.BOLD, 9));
-				btn.setForeground(Color.WHITE);
-				btn.setBackground(Color.BLACK);
-				btn.setPreferredSize(new Dimension(110,40));
-				button_panel.add(btn);
-				btnArray[b]=btn;
-				frame.getContentPane().setLayout(groupLayout);
-			   
-					}	
-		 }
+		frame.getContentPane().add(southPanel, BorderLayout.SOUTH);
+
+		frame.repaint();
+		frame.setVisible(true);
+
 	}
+
+
+
+	/**
+	 * Returns a reference to the button at the index passed as argument.
+	 * The main purpose of providing this method is so the client can add
+	 * actionListeners to the button.
+	 * Buttons are numbered from left to right as they appear in the frame, from
+	 * 0 to (jButtonNumber-1), jButtonNumber being the number of buttons
+	 * initialized by the constructor. 
+	 * 
+	 * @param index
+	 *            the index of the button to be returned
+	 * @return reference to the JButton object at the index passed as argument
+	 * @throws IllegalArgumentException
+	 *             if the index is negative or equal to or bigger than
+	 *             jButtonNumber (the number of buttons initialized)
+	 */
+	public JButton getButton(int index) {
+		if (index >= this.jButtonNumber || index < 0) {
+			throw new IllegalArgumentException("Invalid button index.");
+		}
+		return this.buttonList.get(index);
+	}
+
+	/**
+	 * Returns a reference to the BrailleCell object at the index passed as
+	 * argument. Braille Cells are numbered left to right and top to bottom as
+	 * they appear in the frame, from 0 to (brailleCellNumber - 1),
+	 * brailleCellNumber being the number of BrailleCell objects initialized by
+	 * the constructor.
+	 * 
+	 * 
+	 * @param index
+	 *            the index of the BrailleCell object whose reference is to be
+	 *            returned
+	 * @return reference to the BrailleCell object at the index passed as
+	 *         argument
+	 * @throws IllegalArgumentException
+	 *             if the index is negative or equal to or bigger than
+	 *             brailleCellNumber (the number of Braille Cells initialized)
+	 */
+	public BrailleCell getCell(int index) {
+		if (index >= this.brailleCellNumber || index < 0) {
+			throw new IllegalArgumentException("Invalid cell index.");
+		}
+		return this.brailleList.get(index);
+	}
+
+	/**
+	 * Clears all the Braille Cells, i.e lowers all the pins for all of them,
+	 * effectively making them display nothing.
+	 */
+	public void clearAllCells() {
+
+		for (int i = 0; i < this.brailleCellNumber; i++) {
+			this.brailleList.get(i).clear();
+
+		}
+	}
+
+	/**
+	 * Displays the string passed as argument on all the Braille Cells
+	 * If the string is shorter than the total number of Braille Cells, the
+	 * remaining cells are cleared. However, if the string is longer it only displays
+	 * the part of it up to however many Braille Cells there are and ignores the
+	 * rest.
+	 * 
+	 * @param aString
+	 *            the String to be displayed on the Braille Cells
+	 */
+	public void displayString(String aString) {
+		this.clearAllCells();
+		for (int i = 0; i < this.brailleCellNumber && i < aString.length(); i++) {
+			this.brailleList.get(i).displayCharacter(aString.charAt(i));
+		}
+	}
+
 }
