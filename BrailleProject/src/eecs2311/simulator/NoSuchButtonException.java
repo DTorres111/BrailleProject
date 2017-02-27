@@ -1,4 +1,4 @@
-package eecs2311.brailleproject;
+package eecs2311.simulator;
 
 public class NoSuchButtonException extends Exception {
 	

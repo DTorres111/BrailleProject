@@ -6,7 +6,7 @@ import java.awt.Color;
 import org.junit.Before;
 import org.junit.Test;
 
-import eecs2311.brailleproject.SimulatorAPI;
+import eecs2311.simulator.SimulatorAPI;
 
 public class SimulatorTest {
 

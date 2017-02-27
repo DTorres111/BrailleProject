@@ -1,4 +1,4 @@
-package eecs2311.brailleproject;
+package eecs2311.simulator;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

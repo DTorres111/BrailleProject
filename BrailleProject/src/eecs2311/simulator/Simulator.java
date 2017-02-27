@@ -1,4 +1,4 @@
-package eecs2311.brailleproject;
+package eecs2311.simulator;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
