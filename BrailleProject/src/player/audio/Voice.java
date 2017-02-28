@@ -1,4 +1,4 @@
-package eecs2311.player;
+package player.audio;
 
 import com.sun.speech.freetts.VoiceManager;
 
@@ -18,6 +18,5 @@ public class Voice {
 		
 		this.voice.speak(something);
 		
-	}
-	
+	}	
 }
