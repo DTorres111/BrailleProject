@@ -1,2 +1,22 @@
-Heyy, I didnt see you there! Welcome, to an amazing robot adventure.
-clap.wav
+Cells'3'Buttons'8'
+
+message_voice:Hello and welcome!:2
+audio:clap.wav
+message_voice:How are you?:1
+audio:clap.wav
+
+setLetter:a'2
+Location 1
+message:Press button 1 if you think it is a, or 2 if you think it is b.
+correct:1
+choice1:2
+choice2:3
+
+Location 2
+You did it!
+
+Location 3
+Would you like try
+
+message:Let's make it harder, here is a word.
+setWord:hey
