@@ -15,6 +15,9 @@ import player.audio.Sound;
 
 public class Player {
 
+	public Simulator sim ;
+	
+
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		Scanner scan=new Scanner(new File("PlayerFile.txt"));
@@ -43,18 +46,8 @@ public class Player {
 		scanner.close();
 		
 		//plays list of instructions after first line
-		play(list,"");
-
 		Simulator sim = new Simulator(cells,buttons);
-
-		/*
-		sim.getButton(0).addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Button 0 got pressed.");
-			}
-		});*/
+		play(list,"",sim);
 		
 		scan.close();
 	}
@@ -66,7 +59,7 @@ public class Player {
 	 * @param location is the location in the ArrayList from which to play the lines.
 	 */
 	//location implementation will be added later when I do the loops.
-	private static void play(ArrayList<String> list, String location){
+	private static void play(ArrayList<String> list, String location, Simulator sim){
 		
 		//scanner object for each line string
 		Scanner p;
@@ -79,17 +72,61 @@ public class Player {
 			p=new Scanner(list.get(i)).useDelimiter(":");
 			command=p.next();
 			
+			try{
 			//calls the appropriate methods for each command
 			if(command.equals("message_voice")){
 				message(p.next(),Integer.parseInt(p.next()));		
+				
 		        }else if(command.equals("audio")){
 		        	Sound.playSound(p.next());
 		        	//allows sound to play for full duration before next sound/voice
 		        	sleep((int)Sound.duration/1000);
+		        	
+		        }else if(command.equals("setString")){
+		        	setString(p.next(),sim);
+		        	
+		        }else if(command.equals("clearCells")){
+		        	sim.clearAllCells();
+		        
+		        }else if(command.equals("question")){
+		        	question(Integer.parseInt(p.next()),p.next(),p.next(), sim);
 		        }
+			}catch(Exception e){System.out.println("there was a problem in the format of command: "+i+1);}
 			}
 	}
 	
+	private static void question(int ans, String correct, String incorrect, Simulator sim) {
+		
+		ActionListener action=new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource()==sim.getButton(0)){
+					if(ans==0)
+						message(correct,1);
+					else
+						message(incorrect,1);
+				}else if(arg0.getSource()==sim.getButton(1)){
+					if(ans==1)
+						message(correct,1);
+					else
+						message(incorrect,1);
+				}
+			}
+		};
+		sim.getButton(0).addActionListener(action);
+		sim.getButton(1).addActionListener(action);
+		
+		sleep(5000);
+	}
+
+	private static void setString(String string, Simulator sim) {
+
+		sim.displayString(string);
+			
+	}
+	
+
 	/**
 	 * Converts text (line) to speech using the voice specified.
 	 * @param line is the line to speak, right after the message_voice command

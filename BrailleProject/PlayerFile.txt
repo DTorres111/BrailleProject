@@ -2,21 +2,16 @@ Cells'3'Buttons'8'
 
 message_voice:Hello and welcome!:2
 audio:clap.wav
-message_voice:How are you?:1
-audio:clap.wav
 
-setLetter:a'2
+clearCells
+setString:a
 Location 1
-message:Press button 1 if you think it is a, or 2 if you think it is b.
-correct:1
-choice1:2
-choice2:3
+message_voice:Press button 0 if you think it is a, or 1 if you think it is b.:2
+question:0:You got it right!: I am sorry but that is incorrect.
 
-Location 2
-You did it!
+clearCells
+setString:b
+message_voice:Press button 0 if you think it is a, or 1 if you think it is b.:2
+question:1:You got it right!: I am sorry but that is incorrect.
 
-Location 3
-Would you like try
-
-message:Let's make it harder, here is a word.
-setWord:hey
+message:Let's make it harder, here is a word.:1
