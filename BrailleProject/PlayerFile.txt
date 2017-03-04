@@ -14,4 +14,8 @@ setString:b
 message:Press button 0 if you think it is a, or 1 if you think it is b.
 question:1:You got it right!: I am sorry but that is incorrect.
 
+setString:i
+message:Press button 0 if you think it is i, or 1 if you think it is b.
+question:0:You got it right!: I am sorry but that is incorrect.
+
 message:Let's make it harder, here is a word.

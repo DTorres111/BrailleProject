@@ -12,7 +12,8 @@ import player.audio.Voice;
 public class Play {
 
 	Simulator sim;
-	ActionListener action;
+	public static ActionListener action;
+	int counter=0;
 	/*
 	public void setActionListener(int ans, String correct, String incorrect){
 		this.action = new ActionListener
@@ -35,12 +36,12 @@ public class Play {
 		String command;
 		
 			//iterating through the list
+		
 			for(int i=1;i<list.size();i++){
 			
 			//extracting the command from the current line string (each command has ':')
 			p=new Scanner(list.get(i)).useDelimiter(":");
 			command=p.next();
-			
 			command(command,p,i);
 			}
 	}
@@ -48,13 +49,14 @@ public class Play {
 		try{
 			//calls the appropriate methods for each command
 			if(command.equals("message")){
+				counter++;
 				Voice voice = new Voice("kevin");
 				voice.say(p.next());
 				
 		        }else if(command.equals("audio")){
-		        	Sound.playSound(p.next());
+		        	//Sound.playSound(p.next());
 		        	//allows sound to play for full duration before next sound/voice
-		        	sleep((int)Sound.duration/1000);
+		        	//sleep((int)Sound.duration/1000);
 		        	
 		        }else if(command.equals("setString")){
 		        	sim.displayString(p.next());
@@ -63,18 +65,20 @@ public class Play {
 		        	sim.clearAllCells();
 		        
 		        }else if(command.equals("question")){
+		        	
 		        	question(Integer.parseInt(p.next()),p.next(),p.next());
 		        }
 			}catch(Exception e){System.out.println("there was a problem in the format of command: "+i+1);}
 			}
 	
-	private void question(int ans, String correct, String incorrect) {
+	private void question(int ans, String correct, String incorrect) 
 		
-		ActionListener action=new ActionListener(){
-
+	{
+			action=new ActionListener(){
 			Voice voice = new Voice("kevin");
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(ans);
 				if(arg0.getSource()==sim.getButton(0)){
 					if(ans==0)
 						voice.say(correct);
@@ -87,12 +91,23 @@ public class Play {
 						voice.say(incorrect);
 				}
 			}
+			
+			
 		};
-		sim.getButton(0).addActionListener(action);
-		sim.getButton(1).addActionListener(action);
 		
-	}
+		sim.getButton(1).addActionListener(action);
+		sim.getButton(0).addActionListener(action);
+		
+		sleep(5000);
 	
+		if(counter>1)
+		{
+		sim.getButton(1).removeActionListener(action);
+		sim.getButton(0).removeActionListener(action);
+		}
+	}
+
+
 	public void sleep(int time){
 		try{
 			Thread.sleep(time);
