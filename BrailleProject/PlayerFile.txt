@@ -1,7 +1,10 @@
 Cells'3'Buttons'8'
 
-message:Hello and welcome!
+message:Hello and welcome! 
 audio:clap.wav
+message:If you want to listen the instructions, press button 0 or wait to continue for the first question.
+question:0: In this device we will display letters or words. You have to feel them and press the correct button according to the instructions. Now we will give you first question.:.
+
 
 clearCells
 setString:a
@@ -19,3 +22,4 @@ message:Press button 0 if you think it is i, or 1 if you think it is b.
 question:0:You got it right!: I am sorry but that is incorrect.
 
 message:Let's make it harder, here is a word.
+

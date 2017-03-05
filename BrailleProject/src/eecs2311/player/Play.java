@@ -14,6 +14,7 @@ public class Play {
 	Simulator sim;
 	public static ActionListener action;
 	int counter=0;
+	int counter1=0;
 	/*
 	public void setActionListener(int ans, String correct, String incorrect){
 		this.action = new ActionListener
@@ -52,8 +53,10 @@ public class Play {
 				counter++;
 				Voice voice = new Voice("kevin");
 				voice.say(p.next());
+				sleep(1500);
 				
-		        }else if(command.equals("audio")){
+		        }
+				else if(command.equals("audio")){
 		        	//Sound.playSound(p.next());
 		        	//allows sound to play for full duration before next sound/voice
 		        	//sleep((int)Sound.duration/1000);
@@ -65,7 +68,7 @@ public class Play {
 		        	sim.clearAllCells();
 		        
 		        }else if(command.equals("question")){
-		        	
+		        	counter1++;
 		        	question(Integer.parseInt(p.next()),p.next(),p.next());
 		        }
 			}catch(Exception e){System.out.println("there was a problem in the format of command: "+i+1);}
@@ -97,14 +100,17 @@ public class Play {
 		
 		sim.getButton(1).addActionListener(action);
 		sim.getButton(0).addActionListener(action);
-		
+		if(counter1>1)   //I assume that first question will always be for instructions
 		sleep(5000);
-	
+		else  // for first question the counter will be zero. And it will sleep according to length of the instructions. 
+			sleep(correct.length()*80);
+		
 		if(counter>1)
 		{
 		sim.getButton(1).removeActionListener(action);
 		sim.getButton(0).removeActionListener(action);
 		}
+		
 	}
 
 
