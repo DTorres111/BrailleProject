@@ -43,8 +43,8 @@ public class Player {
 		//plays list of instructions after first line
 		sim = new Simulator(cells,buttons);
 		
-	Play play = new Play(sim);
-	play.scenario(list,"");
+	Play play = new Play(sim,cells,buttons);
+	play.scenario(list,0);
 		
 		scan.close();
 	}
