@@ -5,7 +5,7 @@ audio:clap.wav
 clearCells
 
 setString:a
-Location:1
+Location:7
 Location:2
 Location:79
 

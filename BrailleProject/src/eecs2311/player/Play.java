@@ -125,6 +125,10 @@ public class Play {
 		        }else if(command.equals("question")){
 					
 		        	int ans=Integer.parseInt(p.next());
+		        	
+		        	if(ans>buttons){
+		        		throw new Exception();
+		        	}
 		        	String correct=p.next();
 		        	String incorrect=p.next();
 	
@@ -171,8 +175,14 @@ public class Play {
 		        }
 			}catch(Exception e){
 						
+				Voice error = new Voice("kevin");
 				
-					  printLog.println("there was a problem in the format of command: "+(i+1));
+					error.say("Something was wrong with the program, please give the device an adult such as your teacher");
+					error.say("so that they may fx it.");
+					
+					error=null;
+				
+					  printLog.println("There was a problem in the format of command: "+(i+1));
 				      System.out.println("there was a problem in the format of command: "+(i+1));}
 		}
 	
