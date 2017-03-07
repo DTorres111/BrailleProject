@@ -1,20 +1,23 @@
 Cells'5'Buttons'6'
-
-message:Hello and welcome! 
+message:Hello there
 audio:clap.wav
 
 clearCells
+
 setString:a
 Location:1
 Location:2
 Location:79
+
 message:Press button 3 if you think it is a, or 5 if you think it is b.
 question:3:You got it right!: I am sorry but that is incorrect.
-
-goto1:1
-
+message:If you would like to repeat this press button 3, if not press any other button
+goto:79:3
 clearCells
 setString:b
+
 Location:4
 message:Press button 0 if you think it is a, or 1 if you think it is b.
 question:1:You got it right!: I am sorry but that is incorrect.
+Location:5
+exit

@@ -2,11 +2,13 @@ package eecs2311.player;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-
-import javax.swing.JButton;
 
 import eecs2311.simulator.Simulator;
 import player.audio.Sound;
@@ -20,13 +22,38 @@ public class Play {
 	public int buttons;
 	private boolean flag=false;
 	public int buttonPushed;
+	private ArrayList<String> list;
+	private int counter=0;
+	private File log;
+	private PrintStream printLog;
 
+
+	//hashmap with int location (key), int command#
 	HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+	private Scanner scanner;
 	
-	public Play(Simulator sim, int cells, int buttons){
+	public Play(Simulator sim, int cells, int buttons, ArrayList<String> list) throws FileNotFoundException{
 		this.sim=sim;
 		this.cells=cells;
 		this.buttons=buttons;
+		this.list=list;
+		
+		//creating log file
+		try {
+
+		     log = new File("logs.txt");
+
+		      if (log.createNewFile()){
+		        System.out.println("File is created!");
+		      }else{
+		        System.out.println("File already exists.");
+		      }
+
+	  	} catch (IOException ex) {
+		      ex.printStackTrace();
+	  	}
+		
+     printLog = new PrintStream(log);
 	}
 	
 	/**
@@ -35,24 +62,38 @@ public class Play {
 	 * @param location is the location in the ArrayList from which to play the lines.
 	 */
 	//location implementation will be added later when I do the loops.
-	public void scenario(ArrayList<String> list, int location){
+	public void scenario(int location){
 		
+	
 		//scanner object for each line string
 		Scanner p;
 		String command;
 		
-			//iterating through the list
-		
-			for(int i=location;i<list.size();i++){
 			
-			//extracting the command from the current line string (each command has ':')
-			p=new Scanner(list.get(i)).useDelimiter(":");
+		//filling HashMap with locations
+		int key,value;
+		if(counter==0){
+		for(int i=1; i<list.size(); i++){
+			scanner=new Scanner(list.get(i));
+			p=scanner.useDelimiter(":");
 			command=p.next();
 			
-			if(command.equals("Location")&&location==0){
-				map.put(i+1, Integer.parseInt(p.next()));
-				System.out.println(map.get(i+1));
+			if(command.equals("Location")){
+			key=Integer.parseInt(p.next());
+			value=i+1;
+			
+				map.put(key, value);
+				System.out.println("key: "+key+", value: "+value);
 			}
+		 }
+		}
+		counter=1;
+		   //going through the list
+			for(int i=location;i<list.size();i++){
+
+			scanner = new Scanner(list.get(i));
+			p=scanner.useDelimiter(":");
+			command=p.next();
 			
 			command(command,p,i);
 			}
@@ -60,7 +101,7 @@ public class Play {
 	
 	private  void command(String command,Scanner p, int i){
 		try{
-			//System.out.println("command: "+(i+1));
+			System.out.println("command: "+(i+1));
 			//calls the appropriate methods for each command
 			if(command.equals("message")){
 				Voice voice = new Voice("kevin");
@@ -68,9 +109,11 @@ public class Play {
 				voice=null;
 		        }
 				else if(command.equals("audio")){
-		        	//Sound.playSound(p.next());
+					/*
+		        	Sound.playSound(p.next());
 		        	//allows sound to play for full duration before next sound/voice
-		        	//sleep((int)Sound.duration/1000);
+		        	sleep((int)Sound.duration/1000);
+					*/
 					
 		        //SETSTRING	
 		        }else if(command.equals("setString")){
@@ -114,9 +157,23 @@ public class Play {
 		        		}
 		        	//GOTO********************************************
 		        }else if(command.equals("goto")){
-		        	
+		        	int keepPlaying;
+		        	int location=Integer.parseInt(p.next());
+		        	int choice=Integer.parseInt(p.next());
+		        	System.out.println("goto, location:"+location+", choice: "+choice);
+		            keepPlaying=playFrom(location,choice);		        	
+		       
+		            if(keepPlaying==0){
+		            	System.exit(0);
+		            }
+		        }else if(command.equals("exit")){
+		        	System.exit(0);
 		        }
-			}catch(Exception e){System.out.println("there was a problem in the format of command: "+(i+1));}
+			}catch(Exception e){
+						
+				
+					  printLog.println("there was a problem in the format of command: "+(i+1));
+				      System.out.println("there was a problem in the format of command: "+(i+1));}
 		}
 	
 	private void question(){
@@ -141,8 +198,37 @@ public class Play {
 	}
 	
 	//************************************************
-	public void playFrom(int location){
+	public int playFrom(int location, int choice){
 		
+		question();
+		
+		while(flag==false){
+    		sleep(500);
+    	}
+		if(choice==buttonPushed){
+			System.out.println("Playing from Location "+location+", command: "+map.get(location));
+			
+			//stops program if played from the end (this can be used to quit program).
+			if(map.get(location)==list.size()){
+				System.exit(0);
+			}
+			
+			flag=false;
+			
+			for(int x=0;x<buttons;x++){
+	    		sim.getButton(x).removeActionListener(action);
+	    		}
+			
+			scenario(map.get(location));
+			return 0;
+		}
+		
+		flag=false;
+		
+		for(int x=0;x<buttons;x++){
+    		sim.getButton(x).removeActionListener(action);
+    		}
+		return 1;	
 	}
 
 	public void sleep(int time){
