@@ -24,7 +24,7 @@ public class Play {
 	public int buttonPushed;
 	private ArrayList<String> list;
 	private int counter=0;
-	private File log;
+	public File log;
 	private PrintStream printLog;
 	private int testing=0;
 
