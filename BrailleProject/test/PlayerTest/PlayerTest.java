@@ -2,21 +2,17 @@ package PlayerTest;
 
 import static org.junit.Assert.*;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
+
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import eecs2311.player.Play;
 import eecs2311.simulator.Simulator;
-import eecs2311.simulator.SimulatorAPI;
 
 /**
  * This is the testing class of our player app. It's package name is PlayerTest.
@@ -24,7 +20,7 @@ import eecs2311.simulator.SimulatorAPI;
  * First, it test all the commands separately.
  * I can only check one command at a time because it creates new object at start of every test case. Hence,
  * it only checks the first command.
- * It not possible to do unit testing of everything that's why we also did system testing to get whole file tested.
+ * It is not possible to do unit testing of everything that's why we also did system testing to get whole file tested.
  * 
  * @author TEAM 5
  *
@@ -46,7 +42,7 @@ public class PlayerTest {
 	@Before
 	public void setUp() throws Exception {
 		list.add("");
-		list.add("message:Hello there");	 // Use to test message command
+		//list.add("message:Hello there");	 // Use to test message command
 		//list.add("question:3:You got it right!: I am sorry but that is incorrect."); // Use to test question command
 		//list.add("clearCells"); // Use to check clearCells command
 		//list.add("exit"); // Use to check exit command
@@ -208,12 +204,9 @@ public class PlayerTest {
 	@Test
 	public void testHashMap() {
 		
-		int j=0;
-	
-		
-	///////////////////// HELP//////////////////////////
-		
-		
+		HashMap<Integer,Integer> map=app.getHashMap();
+		assertEquals((int)map.get(2),1);
+				
 	}
 
 	

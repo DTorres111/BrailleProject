@@ -30,8 +30,16 @@ public class Play {
 
 
 	//hashmap with int location (key), int command#
-	HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+	private HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
 	private Scanner scanner;
+	
+	/**
+	 * Accessing the HashMap.
+	 * @return the map of locations and command lines.
+	 */
+	public HashMap<Integer,Integer> getHashMap(){
+		return map;
+	}
 	
 	/**
 	 * Sets the variables and creates log file.
