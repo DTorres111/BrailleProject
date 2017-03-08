@@ -26,6 +26,7 @@ public class Play {
 	private int counter=0;
 	private File log;
 	private PrintStream printLog;
+	private int testing=0;
 
 
 	//hashmap with int location (key), int command#
@@ -98,6 +99,8 @@ public class Play {
 			key=Integer.parseInt(p.next());
 			//the value is the index in the list+1.
 			value=i+1;
+			//initialize the variable testing to 0
+			testing=0;
 			
 			//fills map with keys and values
 			map.put(key, value);
@@ -114,7 +117,7 @@ public class Play {
 			scanner = new Scanner(list.get(i));
 			p=scanner.useDelimiter(":");
 			command=p.next();
-			
+			testing=0; // set testing to 0
 			//Retrieves the command and sends it to the command method with the scanner object of each line
 			//and the current index of the list as parameters.
 			command(command,p,i);
@@ -137,13 +140,14 @@ public class Play {
 			//MESSAGE
 			if(command.equals("message")){
 				//creates new voice object to say the message.
+				testing=1;
 				Voice voice = new Voice("kevin");
 				voice.say(p.next());
 				voice=null;
 		        }
 				//AUDIO
 				else if(command.equals("audio")){
-					
+					testing=2;
 		        	Sound.playSound(p.next());
 		        	//allows sound to play for full duration before next sound/voice
 		        	sleep((int)Sound.duration/1000);
@@ -151,13 +155,16 @@ public class Play {
 					
 		        //SETSTRING	
 		        }else if(command.equals("setString")){
+		        	testing=3;
 		        	sim.displayString(p.next());
 		        //CLEARCELLS	
 		        }else if(command.equals("clearCells")){
 		        	sim.clearAllCells();
+		        	testing=4;
 		        //QUESTION
 		        }else if(command.equals("question")){
 					//extracts the correct button number that should be pushed.
+		        	testing=5;
 		        	int ans=Integer.parseInt(p.next());
 		        	
 		        	//if this happens, the log is updated.
@@ -202,6 +209,7 @@ public class Play {
 		        	
 		        	//GOTO
 		        }else if(command.equals("goto")){
+		        	testing =6;
 		        	int keepPlaying;
 		        	//extracts the location # and the button to press (choice) to go to that location.
 		        	int location=Integer.parseInt(p.next());
@@ -223,6 +231,7 @@ public class Play {
 		            }
 		           
 		        }else if(command.equals("exit")){
+		        	testing=7;
 		        	System.exit(0);
 		        }
 			}catch(Exception e){
@@ -311,6 +320,18 @@ public class Play {
     		}
 		return 1;	
 	}
+	
+	
+	/**
+	 * @return testing variable
+	 * it used for testing purposes.
+	 */
+	public int getTesting()
+	{
+		return testing;
+	}
+	
+	
 
 	/**
 	 * @param time is the amount in milliseconds for Thread to sleep
