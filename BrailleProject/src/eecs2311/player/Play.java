@@ -32,6 +32,14 @@ public class Play {
 	HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
 	private Scanner scanner;
 	
+	/**
+	 * Sets the variables and creates log file.
+	 * @param sim the simulator object that is playing the scenario.
+	 * @param cells number of cells initialized.
+	 * @param buttons number of buttons initialized.
+	 * @param list the list of command lines, without any empty spaces.
+	 * @throws FileNotFoundException if the log file was not found
+	 */
 	public Play(Simulator sim, int cells, int buttons, ArrayList<String> list) throws FileNotFoundException{
 		this.sim=sim;
 		this.cells=cells;
@@ -61,7 +69,7 @@ public class Play {
 	 * @param list is the ArrayList containing every line from the PlayerFile.txt without empty lines.
 	 * @param location is the location in the ArrayList from which to play the lines.
 	 */
-	//location implementation will be added later when I do the loops.
+	
 	public void scenario(int location){
 		
 	
@@ -70,19 +78,31 @@ public class Play {
 		String command;
 		
 			
-		//filling HashMap with locations
+		/*
+		 * Filling HashMap with the Locations.
+		 * This will only be done once.
+		 * The keys are the Locations numbers, the values are the command line numbers.
+		 */
 		int key,value;
 		if(counter==0){
+		
+			//iterates through the list
 		for(int i=1; i<list.size(); i++){
 			scanner=new Scanner(list.get(i));
 			p=scanner.useDelimiter(":");
+			//gets the command
 			command=p.next();
 			
 			if(command.equals("Location")){
+			//stores the location number as key
 			key=Integer.parseInt(p.next());
+			//the value is the index in the list+1.
 			value=i+1;
 			
-				map.put(key, value);
+			//fills map with keys and values
+			map.put(key, value);
+				
+			//testing:
 				System.out.println("key: "+key+", value: "+value);
 			}
 		 }
@@ -95,25 +115,39 @@ public class Play {
 			p=scanner.useDelimiter(":");
 			command=p.next();
 			
+			//Retrieves the command and sends it to the command method with the scanner object of each line
+			//and the current index of the list as parameters.
 			command(command,p,i);
 			}
 	}
 	
+	/**
+	 * Gets the command from the list (which contains the file) and executes it.
+	 * Extract method could be used here, but the team did not have enough time to adjust the code to further changes.
+	 * @param command is the first string of every line in the file, contained in the ArrayList, that decides what to execute.
+	 * @param p is the Scanner object that reads a line with ':' as delimiter.
+	 * @param i is the current index in the ArrayList
+	 */
 	private  void command(String command,Scanner p, int i){
 		try{
+			//testing:
 			System.out.println("command: "+(i+1));
-			//calls the appropriate methods for each command
+			
+			//does the appropriate action for each command
+			//MESSAGE
 			if(command.equals("message")){
+				//creates new voice object to say the message.
 				Voice voice = new Voice("kevin");
 				voice.say(p.next());
 				voice=null;
 		        }
+				//AUDIO
 				else if(command.equals("audio")){
-					/*
+					
 		        	Sound.playSound(p.next());
 		        	//allows sound to play for full duration before next sound/voice
 		        	sleep((int)Sound.duration/1000);
-					*/
+					
 					
 		        //SETSTRING	
 		        }else if(command.equals("setString")){
@@ -123,23 +157,28 @@ public class Play {
 		        	sim.clearAllCells();
 		        //QUESTION
 		        }else if(command.equals("question")){
-					
+					//extracts the correct button number that should be pushed.
 		        	int ans=Integer.parseInt(p.next());
 		        	
+		        	//if this happens, the log is updated.
 		        	if(ans>buttons){
 		        		throw new Exception();
 		        	}
+		        	//message to say if the user presses the correct or incorrect buttons.
 		        	String correct=p.next();
 		        	String incorrect=p.next();
 	
 		        	
 		        	Voice voice = new Voice("kevin");
+		        	//calls question method to get input from user.
 		        	question();
-
+		        	//allows user to press a button before continuing.
 		        	while(flag==false){
 		        		sleep(500);
 		        	}
    
+		        	//if the user presses the correct button, it says the correct message.
+		        	//any other button says the incorrect message.
 					try{
 					if(ans==buttonPushed){
 						
@@ -154,22 +193,35 @@ public class Play {
 					
 					}catch(Exception e){}
 	        	
+					//resets the buttons.
 		        	flag=false;
 		        	
 		        	for(int x=0;x<buttons;x++){
 		        		sim.getButton(x).removeActionListener(action);
 		        		}
-		        	//GOTO********************************************
+		        	
+		        	//GOTO
 		        }else if(command.equals("goto")){
 		        	int keepPlaying;
+		        	//extracts the location # and the button to press (choice) to go to that location.
 		        	int location=Integer.parseInt(p.next());
 		        	int choice=Integer.parseInt(p.next());
+		        	
+		        	//updates the log if something is wrong with the line.
+		        	if(choice>buttons){
+		        		throw new Exception();
+		        	}
+		        	//testing:
 		        	System.out.println("goto, location:"+location+", choice: "+choice);
+		        	
+		        	//calls method playFrom, stores its return value in keepPlaying
 		            keepPlaying=playFrom(location,choice);		        	
 		       
+		            //exits program if keepPlaying is 0 or the command line reads exit.
 		            if(keepPlaying==0){
 		            	System.exit(0);
 		            }
+		           
 		        }else if(command.equals("exit")){
 		        	System.exit(0);
 		        }
@@ -177,6 +229,7 @@ public class Play {
 						
 				Voice error = new Voice("kevin");
 				
+				//Warns user there was an error and updates the error log file.
 					error.say("Something was wrong with the program, please give the device an adult such as your teacher");
 					error.say("so that they may fx it.");
 					
@@ -186,6 +239,12 @@ public class Play {
 				      System.out.println("there was a problem in the format of command: "+(i+1));}
 		}
 	
+	/**
+	 * Creates the ActionListener object to get user input.
+	 * sets the flag to true if a button was pushed, and stores the number of the button in
+	 * the variable buttonPushed.
+	 * Adds all the buttons to the ActionListener.
+	 */
 	private void question(){
 		
 			action=new ActionListener(){
@@ -207,11 +266,19 @@ public class Play {
 		
 	}
 	
-	//************************************************
+	/**
+	 * This method calls scenario at a specific command line(contained in a HashMap with the Location # as the key).
+	 * @param location is the number of the Location command which is they key in the HashMap. This key
+	 * addresses a command line that specifies where to play the scenario from.
+	 * @param choice is the button that should be pushed to play from the specified location.
+	 * any other button pushed will continue the same scenario.
+	 * @return 1 to continue playing from last location or 0 to stop playing previous scenario
+	 */
 	public int playFrom(int location, int choice){
 		
 		question();
 		
+		//allows user to press a button before continuing. 
 		while(flag==false){
     		sleep(500);
     	}
@@ -223,16 +290,20 @@ public class Play {
 				System.exit(0);
 			}
 			
-			flag=false;
 			
+			 //Resets the buttons for the new scenario to play, return 0 means stopping the previous scenario.
+			
+			flag=false;
 			for(int x=0;x<buttons;x++){
 	    		sim.getButton(x).removeActionListener(action);
 	    		}
 			
+			//plays the scenario from the location.
 			scenario(map.get(location));
 			return 0;
 		}
 		
+		//if no new scenario will be played, the buttons are reset and 1 is returned.
 		flag=false;
 		
 		for(int x=0;x<buttons;x++){
@@ -241,6 +312,9 @@ public class Play {
 		return 1;	
 	}
 
+	/**
+	 * @param time is the amount in milliseconds for Thread to sleep
+	 */
 	public void sleep(int time){
 		try{
 			Thread.sleep(time);
