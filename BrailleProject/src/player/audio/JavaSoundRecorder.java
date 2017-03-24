@@ -8,6 +8,17 @@ import java.io.*;
  * author: www.codejava.net
  */
 public class JavaSoundRecorder {
+	File soundFile;
+	
+	//constructor
+    public JavaSoundRecorder(File file){
+    	soundFile = file;
+    }
+    
+    public File getFilePath(){
+    	return soundFile;
+    }
+	/*
     // record duration, in milliseconds
     static long RECORD_TIME = 5000;  // 1 minute
  
@@ -18,10 +29,7 @@ public class JavaSoundRecorder {
     
     public long getRecordTime(){
     	return RECORD_TIME;
-    }
-    
-    // path of the wav file
-    File wavFile = new File("RecordAudio.wav");
+    }*/
  
     // format of audio file
     AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
@@ -67,7 +75,7 @@ public class JavaSoundRecorder {
             System.out.println("Start recording...");
  
             // start recording
-            AudioSystem.write(ais, fileType, wavFile);
+            AudioSystem.write(ais, fileType, soundFile);
  
         } catch (LineUnavailableException ex) {
             ex.printStackTrace();

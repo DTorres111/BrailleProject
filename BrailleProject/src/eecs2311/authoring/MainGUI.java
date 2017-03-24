@@ -35,22 +35,7 @@ import javax.swing.JMenuItem;
 
 public class MainGUI {
 
-	private JFrame frame;
-
-
-	 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainGUI window = new MainGUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	protected JFrame frame;
 
 	/**
 	 * Create the application.
@@ -115,7 +100,5 @@ public class MainGUI {
 		panel_1.add(btnRunFile);
 		
 	}
-
-
 	
 }
