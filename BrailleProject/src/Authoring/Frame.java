@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -27,11 +29,13 @@ public class Frame {
 
 	private JFrame frame;
 	int i = 0;
-	String[] message = new String[10];
+	ArrayList<String> message = new ArrayList<String>();
 	JButton ok = new JButton("OK");
-	JTextField d = new JTextField(100);
+	JButton okie = new JButton("OK");
+	JTextField d = new JTextField(10);
 	JTextArea log = new JTextArea(10, 10);
 	JMenuItem item1 = new JMenuItem("Save");
+	JTextField e = new JTextField(10);
 
 	public Frame() {
 		// frame
@@ -48,6 +52,7 @@ public class Frame {
         JButton question = new JButton("Question");
 		JButton voice = new JButton("Voice");
 		JButton sound = new JButton("Sound");
+		JButton reorder= new JButton("Reorder");
 		GridBagConstraints gg = new GridBagConstraints();
 		// gg.fill = GridBagConstraints.HORIZONTAL;
 		gg.weightx = 0;
@@ -78,6 +83,10 @@ public class Frame {
 		gg.gridx = 5;
 		gg.gridy = 0;
 		panel.add(voice, gg);
+		
+		gg.gridx = 6;
+		gg.gridy = 0;
+		panel.add(reorder, gg);
 
 		// panel for log
 
@@ -88,9 +97,9 @@ public class Frame {
 		frame.add(scrollV);
 		frame.add(panel, BorderLayout.SOUTH);
 
-		for (int i = 0; i < message.length; i++) {
-			message[i] = "";
-		}
+		//for (int i = 0; i < message.length; i++) {
+	//		message[i] = "";
+	//	}
 
 		// menubar
 
@@ -111,8 +120,8 @@ public class Frame {
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				int num = i + 1;
-				message[i] = "Message " + num + ": " + text.getText();
+				int num = i + 1 ;
+				message.add("Message " + num + ": " + text.getText());
 				log.setText(String.join("\n", message));
 				i++;
 			}
@@ -137,7 +146,7 @@ public class Frame {
 			public void actionPerformed(ActionEvent e) {
 				String as = d.getText();
 				int a = Integer.parseInt(as) - 1;
-				message[a] = null;
+				message.remove(a);
 
 			}
 		});
@@ -145,7 +154,7 @@ public class Frame {
 		question.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int num = i + 1;
-				message[i] = "Question " + num + ": " + text.getText();
+				message.add("Question " + num + ": " + text.getText()) ;
 				log.setText(String.join("\n", message));
 				i++;
 
@@ -163,6 +172,19 @@ public class Frame {
 				openButton();
 			}
 		});
+		
+		reorder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				reorder();
+			}
+		});
+		
+		okie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				okie();
+			}
+		});
+		
 
 	}
 
@@ -213,5 +235,54 @@ public class Frame {
 				System.out.println("cant read");
 			}
 		}
+	}
+	
+	public int getCategoryPos(String category) {
+		  return message.indexOf(category);
+		}
+	
+	public void reorder(){
+		
+		JFrame frame1 = new JFrame();
+		frame1.setVisible(true);
+		JPanel panel3 = new JPanel(new GridBagLayout());
+		JLabel h = new JLabel("Enter the first number followed by the question/message you want to swap");
+		JLabel i = new JLabel("Enter the second number followed by the question/message you want to swap");
+		GridBagConstraints gg = new GridBagConstraints();
+		
+		
+		gg.weightx = 0;
+		gg.gridx = 0;
+		gg.gridy = 0;
+		panel3.add(h, gg);
+		
+		gg.gridx = 0;
+		gg.gridy = 1;
+		panel3.add(i, gg);
+		
+		gg.gridx = 1;
+		gg.gridy = 0;
+		panel3.add(e, gg);
+		gg.weightx = 0;
+		gg.gridx = 1;
+		gg.gridy = 1;
+		panel3.add(d, gg);
+		gg.weightx = 0;
+		gg.gridx = 3;
+		gg.gridy = 2;
+		panel3.add(okie, gg);
+		frame1.add(panel3);
+		
+		}
+	
+	public void okie(){
+		String a= d.getText();
+		String b=e.getText();
+		int c=Integer.parseInt(a)-1;
+		int d=Integer.parseInt(b)-1;
+		String e=message.get(c);
+		String f=message.get(d);
+		message.set(c,f);
+		message.set(d,e);
 	}
 }
