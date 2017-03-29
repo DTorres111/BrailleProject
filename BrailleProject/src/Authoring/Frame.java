@@ -32,6 +32,7 @@ public class Frame {
 	ArrayList<String> message = new ArrayList<String>();
 	JButton ok = new JButton("OK");
 	JButton okie = new JButton("OK");
+	JButton oki = new JButton("OK");
 	JTextField d = new JTextField(10);
 	JTextArea log = new JTextArea(10, 10);
 	JMenuItem item1 = new JMenuItem("Save");
@@ -49,10 +50,11 @@ public class Frame {
 		JLabel label = new JLabel("Type Text Here:");
 		JButton button = new JButton("Message");
 		JButton delete = new JButton("Delete");
-        JButton question = new JButton("Question");
+		JButton question = new JButton("Question");
 		JButton voice = new JButton("Voice");
 		JButton sound = new JButton("Sound");
-		JButton reorder= new JButton("Reorder");
+		JButton reorder = new JButton("Reorder");
+		JButton edit = new JButton("Edit");
 		GridBagConstraints gg = new GridBagConstraints();
 		// gg.fill = GridBagConstraints.HORIZONTAL;
 		gg.weightx = 0;
@@ -83,10 +85,14 @@ public class Frame {
 		gg.gridx = 5;
 		gg.gridy = 0;
 		panel.add(voice, gg);
-		
+
 		gg.gridx = 6;
 		gg.gridy = 0;
 		panel.add(reorder, gg);
+
+		gg.gridx = 7;
+		gg.gridy = 0;
+		panel.add(edit, gg);
 
 		// panel for log
 
@@ -97,9 +103,9 @@ public class Frame {
 		frame.add(scrollV);
 		frame.add(panel, BorderLayout.SOUTH);
 
-		//for (int i = 0; i < message.length; i++) {
-	//		message[i] = "";
-	//	}
+		// for (int i = 0; i < message.length; i++) {
+		// message[i] = "";
+		// }
 
 		// menubar
 
@@ -107,7 +113,7 @@ public class Frame {
 		JMenu menu = new JMenu("Menu");
 		menuBar.add(menu);
 		JMenuItem item = new JMenuItem("New");
-        JMenuItem item2 = new JMenuItem("Open");
+		JMenuItem item2 = new JMenuItem("Open");
 		JMenuItem item3 = new JMenuItem("Play");
 		menu.add(item);
 		menu.add(item1);
@@ -120,7 +126,7 @@ public class Frame {
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				int num = i + 1 ;
+				int num = i + 1;
 				message.add("Message " + num + ": " + text.getText());
 				log.setText(String.join("\n", message));
 				i++;
@@ -154,7 +160,7 @@ public class Frame {
 		question.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int num = i + 1;
-				message.add("Question " + num + ": " + text.getText()) ;
+				message.add("Question " + num + ": " + text.getText());
 				log.setText(String.join("\n", message));
 				i++;
 
@@ -172,19 +178,30 @@ public class Frame {
 				openButton();
 			}
 		});
-		
+
 		reorder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				reorder();
 			}
 		});
-		
+
 		okie.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				okie();
 			}
 		});
-		
+
+		edit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				edit();
+			}
+		});
+
+		oki.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				oki();
+			}
+		});
 
 	}
 
@@ -236,30 +253,29 @@ public class Frame {
 			}
 		}
 	}
-	
+
 	public int getCategoryPos(String category) {
-		  return message.indexOf(category);
-		}
-	
-	public void reorder(){
-		
+		return message.indexOf(category);
+	}
+
+	public void reorder() {
+
 		JFrame frame1 = new JFrame();
 		frame1.setVisible(true);
 		JPanel panel3 = new JPanel(new GridBagLayout());
 		JLabel h = new JLabel("Enter the first number followed by the question/message you want to swap");
 		JLabel i = new JLabel("Enter the second number followed by the question/message you want to swap");
 		GridBagConstraints gg = new GridBagConstraints();
-		
-		
+
 		gg.weightx = 0;
 		gg.gridx = 0;
 		gg.gridy = 0;
 		panel3.add(h, gg);
-		
+
 		gg.gridx = 0;
 		gg.gridy = 1;
 		panel3.add(i, gg);
-		
+
 		gg.gridx = 1;
 		gg.gridy = 0;
 		panel3.add(e, gg);
@@ -272,17 +288,66 @@ public class Frame {
 		gg.gridy = 2;
 		panel3.add(okie, gg);
 		frame1.add(panel3);
-		
-		}
-	
-	public void okie(){
-		String a= d.getText();
-		String b=e.getText();
-		int c=Integer.parseInt(a)-1;
-		int d=Integer.parseInt(b)-1;
-		String e=message.get(c);
-		String f=message.get(d);
-		message.set(c,f);
-		message.set(d,e);
+
 	}
+
+	public void okie() {
+		String a = d.getText();
+		String b = e.getText();
+		int c = Integer.parseInt(a) - 1;
+		int d = Integer.parseInt(b) - 1;
+		String e = message.get(c);
+		String f = message.get(d);
+		message.set(c, f);
+		message.set(d, e);
+	}
+
+	public void edit() {
+		JFrame frame1 = new JFrame();
+		frame1.setVisible(true);
+		JPanel panel3 = new JPanel(new GridBagLayout());
+		JLabel h = new JLabel("Enter the number followed by the question/message you want to edit");
+		JLabel i = new JLabel("Enter the question/message");
+		GridBagConstraints gg = new GridBagConstraints();
+
+		gg.weightx = 0;
+		gg.gridx = 0;
+		gg.gridy = 0;
+		panel3.add(h, gg);
+
+		gg.gridx = 0;
+		gg.gridy = 1;
+		panel3.add(i, gg);
+
+		gg.gridx = 1;
+		gg.gridy = 0;
+		panel3.add(e, gg);
+
+		gg.gridx = 1;
+		gg.gridy = 1;
+		panel3.add(d, gg);
+
+		gg.gridx = 3;
+		gg.gridy = 2;
+		panel3.add(oki, gg);
+		frame1.add(panel3);
+	}
+
+	public void oki() {
+		String b = e.getText();
+		int c = Integer.parseInt(b) - 1;
+		String f = message.get(c);
+		char e = f.charAt(0);
+		if (e == 'M') {
+			int num = c + 1;
+			String a = "Message " + num + ": " + d.getText();
+			message.set(c, a);
+		} else if (e == 'Q') {
+			int num = i + 1;
+			String a = "Question " + num + ": " + d.getText();
+			message.set(c, a);
+		}
+
+	}
+
 }
