@@ -100,6 +100,8 @@ public class Frame {
 		log.setEditable(false);
 		JScrollPane scrollV = new JScrollPane(log);
 		scrollV.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		TextLineNumber tln = new TextLineNumber(log);
+		scrollV.setRowHeaderView(tln);
 		frame.add(scrollV);
 		frame.add(panel, BorderLayout.SOUTH);
 
@@ -126,8 +128,8 @@ public class Frame {
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				int num = i + 1;
-				message.add("Message " + num + ": " + text.getText());
+
+				message.add("Message:" + text.getText());
 				log.setText(String.join("\n", message));
 				i++;
 			}
@@ -139,7 +141,7 @@ public class Frame {
 				JFrame frame1 = new JFrame();
 				frame1.setVisible(true);
 				JPanel panel3 = new JPanel();
-				JLabel h = new JLabel("Enter the number followed by the question/message");
+				JLabel h = new JLabel("Enter the line number of the question/message");
 
 				panel3.add(h);
 				panel3.add(d);
@@ -159,8 +161,8 @@ public class Frame {
 
 		question.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int num = i + 1;
-				message.add("Question " + num + ": " + text.getText());
+				
+				message.add("Question: " + text.getText());
 				log.setText(String.join("\n", message));
 				i++;
 
@@ -263,8 +265,8 @@ public class Frame {
 		JFrame frame1 = new JFrame();
 		frame1.setVisible(true);
 		JPanel panel3 = new JPanel(new GridBagLayout());
-		JLabel h = new JLabel("Enter the first number followed by the question/message you want to swap");
-		JLabel i = new JLabel("Enter the second number followed by the question/message you want to swap");
+		JLabel h = new JLabel("Enter the line number of the question/message you want to swap");
+		JLabel i = new JLabel("Enter the line number of the question/message you want to swap");
 		GridBagConstraints gg = new GridBagConstraints();
 
 		gg.weightx = 0;
@@ -306,7 +308,7 @@ public class Frame {
 		JFrame frame1 = new JFrame();
 		frame1.setVisible(true);
 		JPanel panel3 = new JPanel(new GridBagLayout());
-		JLabel h = new JLabel("Enter the number followed by the question/message you want to edit");
+		JLabel h = new JLabel("Enter the line number of the question/message you want to edit");
 		JLabel i = new JLabel("Enter the question/message");
 		GridBagConstraints gg = new GridBagConstraints();
 
@@ -339,12 +341,10 @@ public class Frame {
 		String f = message.get(c);
 		char e = f.charAt(0);
 		if (e == 'M') {
-			int num = c + 1;
-			String a = "Message " + num + ": " + d.getText();
+			String a = "Message: " + d.getText();
 			message.set(c, a);
 		} else if (e == 'Q') {
-			int num = i + 1;
-			String a = "Question " + num + ": " + d.getText();
+			String a = "Question: " + d.getText();
 			message.set(c, a);
 		}
 
