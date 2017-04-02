@@ -28,7 +28,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Frame {
 
 	private JFrame frame;
-	int i = 0;
 	ArrayList<String> message = new ArrayList<String>();
 	JButton ok = new JButton("OK");
 	JButton okie = new JButton("OK");
@@ -37,6 +36,26 @@ public class Frame {
 	JTextArea log = new JTextArea(10, 10);
 	JMenuItem item1 = new JMenuItem("Save");
 	JTextField e = new JTextField(10);
+	JButton yes = new JButton("Yes");
+	JButton no = new JButton("No");
+	JFrame frame1 = new JFrame();
+	JFrame frame2 = new JFrame();
+	JFrame frame3 = new JFrame();
+	JFrame frame4 = new JFrame();
+	int a;
+	String z;
+	int number;
+	String[] arr;
+	int c;
+	int q;
+	int t;
+	
+	
+	 
+	// for the scenario file
+	JFrame frames = new JFrame();
+	JTextArea sce = new JTextArea(10, 10);
+	ArrayList<String> result = new ArrayList<String>();
 
 	public Frame() {
 		// frame
@@ -51,10 +70,12 @@ public class Frame {
 		JButton button = new JButton("Message");
 		JButton delete = new JButton("Delete");
 		JButton question = new JButton("Question");
-		JButton voice = new JButton("Voice");
 		JButton sound = new JButton("Sound");
+		JButton voice = new JButton("Voice");
 		JButton reorder = new JButton("Reorder");
 		JButton edit = new JButton("Edit");
+		JButton repeat = new JButton("Repeat");
+		
 		GridBagConstraints gg = new GridBagConstraints();
 		// gg.fill = GridBagConstraints.HORIZONTAL;
 		gg.weightx = 0;
@@ -93,8 +114,12 @@ public class Frame {
 		gg.gridx = 7;
 		gg.gridy = 0;
 		panel.add(edit, gg);
+        
+		gg.gridx = 8;
+		gg.gridy = 0;
+		panel.add(repeat, gg);
 
-		// panel for log
+   		// panel for log
 
 		log.setLineWrap(true);
 		log.setEditable(false);
@@ -104,10 +129,6 @@ public class Frame {
 		scrollV.setRowHeaderView(tln);
 		frame.add(scrollV);
 		frame.add(panel, BorderLayout.SOUTH);
-
-		// for (int i = 0; i < message.length; i++) {
-		// message[i] = "";
-		// }
 
 		// menubar
 
@@ -123,49 +144,74 @@ public class Frame {
 		menu.add(item3);
 		frame.setJMenuBar(menuBar);
 
+		// scenario Frame
+
+		frames.setVisible(true);
+
+		sce.setLineWrap(true);
+		sce.setEditable(false);
+		JScrollPane scroll = new JScrollPane(sce);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		TextLineNumber tlne = new TextLineNumber(sce);
+		scroll.setRowHeaderView(tlne);
+		frames.add(scroll);
+
+		result.add("Cell");
+		result.add("Button");
+		sce.setText(String.join("\n", result));
+		
+		
 		// buttons action listener
 
 		button.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 
-				message.add("Message:" + text.getText());
+				message.add("Message: " + text.getText());
+				result.add(text.getText());
 				log.setText(String.join("\n", message));
-				i++;
+				sce.setText(String.join("\n", result));
+
 			}
 
 		});
 
 		delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame frame1 = new JFrame();
+
 				frame1.setVisible(true);
 				JPanel panel3 = new JPanel();
 				JLabel h = new JLabel("Enter the line number of the question/message");
-
 				panel3.add(h);
 				panel3.add(d);
 				panel3.add(ok);
 				frame1.add(panel3);
+
 			}
 		});
 
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String as = d.getText();
-				int a = Integer.parseInt(as) - 1;
+				a = Integer.parseInt(as) - 1;
+				z = message.get(a);
+				number = scenario();
+				arr = z.split(" ", 2);
+				scenario2();
 				message.remove(a);
+				frame1.dispose();
+				frame.setVisible(true);
 
 			}
 		});
 
 		question.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				message.add("Question: " + text.getText());
-				log.setText(String.join("\n", message));
-				i++;
 
+				message.add("Question: " + text.getText());
+				result.add(text.getText());
+				log.setText(String.join("\n", message));
+				sce.setText(String.join("\n", result));
 			}
 		});
 
@@ -204,6 +250,43 @@ public class Frame {
 				oki();
 			}
 		});
+
+		item.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NEW();
+			}
+		});
+
+		yes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				yes();
+			}
+		});
+
+		no.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				no();
+			}
+		});
+		
+		repeat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				repeat();
+			}
+		});
+		
+		sound.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				soundbutton();
+			}
+		});
+		
+		voice.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				voicebutton();
+			}
+		});
+		
 
 	}
 
@@ -262,8 +345,7 @@ public class Frame {
 
 	public void reorder() {
 
-		JFrame frame1 = new JFrame();
-		frame1.setVisible(true);
+		frame4.setVisible(true);
 		JPanel panel3 = new JPanel(new GridBagLayout());
 		JLabel h = new JLabel("Enter the line number of the question/message you want to swap");
 		JLabel i = new JLabel("Enter the line number of the question/message you want to swap");
@@ -289,24 +371,29 @@ public class Frame {
 		gg.gridx = 3;
 		gg.gridy = 2;
 		panel3.add(okie, gg);
-		frame1.add(panel3);
+		frame4.add(panel3);
 
 	}
 
 	public void okie() {
 		String a = d.getText();
 		String b = e.getText();
-		int c = Integer.parseInt(a) - 1;
-		int d = Integer.parseInt(b) - 1;
-		String e = message.get(c);
-		String f = message.get(d);
-		message.set(c, f);
-		message.set(d, e);
+		q = Integer.parseInt(a) - 1;
+		t = Integer.parseInt(b) - 1;
+		String e = message.get(q);
+		String f = message.get(t);
+		scenario5();
+		scenario6();
+		scenario7();
+		message.set(q, f);
+		message.set(t, e);
+		frame4.dispose();
+		frame.setVisible(true);
 	}
 
 	public void edit() {
-		JFrame frame1 = new JFrame();
-		frame1.setVisible(true);
+
+		frame3.setVisible(true);
 		JPanel panel3 = new JPanel(new GridBagLayout());
 		JLabel h = new JLabel("Enter the line number of the question/message you want to edit");
 		JLabel i = new JLabel("Enter the question/message");
@@ -332,13 +419,15 @@ public class Frame {
 		gg.gridx = 3;
 		gg.gridy = 2;
 		panel3.add(oki, gg);
-		frame1.add(panel3);
+		frame3.add(panel3);
 	}
 
 	public void oki() {
 		String b = e.getText();
-		int c = Integer.parseInt(b) - 1;
+		c = Integer.parseInt(b) - 1;
 		String f = message.get(c);
+		scenario3();
+		scenario4();
 		char e = f.charAt(0);
 		if (e == 'M') {
 			String a = "Message: " + d.getText();
@@ -347,7 +436,245 @@ public class Frame {
 			String a = "Question: " + d.getText();
 			message.set(c, a);
 		}
+        
+		frame3.dispose();
+		frame.setVisible(true);
 
 	}
 
+	public void NEW() {
+
+		frame2.setVisible(true);
+		JPanel panel3 = new JPanel();
+		JLabel h = new JLabel("Are you sure you want a new file? All unsaved data will be lost.");
+
+		panel3.add(h);
+		panel3.add(yes);
+		panel3.add(no);
+		frame2.add(panel3);
+
+	}
+
+	public void yes() {
+		message.clear();
+		frame2.dispose();
+		frame.setVisible(true);
+	}
+
+	public void no() {
+		frame2.dispose();
+		frame.setVisible(true);
+	}
+
+	public int scenario() {
+		int i = 1;
+
+		for (int start = 0; start < a; start++) {
+
+			if (message.get(start).equals(z)) {
+				i++;
+			}
+		}
+		return i;
+	}
+
+	public void scenario2() {
+
+		String res = arr[1];
+		int a = 0;
+		if (number - 1 == 0) {
+			int b = result.indexOf(arr[1]);
+			result.remove(b);
+
+		} else {
+
+			for (int i = 0; number != a; i++) {
+
+				if (result.get(i).equals(res)) {
+					a++;
+					if (a == number) {
+						result.remove(i);
+					}
+				}
+
+			}
+		}
+
+	}
+	
+	public int scenario3(){
+		int i = 1;
+
+		for (int start = 0; start < c; start++) {
+
+			if (message.get(start).equals(message.get(c))) {
+				i++;
+			}
+		}
+		return i;
+	}
+	
+	public void scenario4(){
+		int number=scenario3();
+		int e=0;
+		String w=message.get(c);
+		String[] y=w.split(" ",2);
+		if(number-1==0){
+			int b=result.indexOf(y[1]);
+			result.set(b,d.getText());
+		}
+		else{
+			for (int i = 0; number != e; i++) {
+
+				if (result.get(i).equals(y[1])) {
+					e++;
+					if (e == number) {
+						result.set(i,d.getText());
+					}
+				}
+
+			}
+		}
+	}
+	
+	public int scenario5(){
+		int i = 1;
+
+		for (int start = 0; start < q; start++) {
+
+			if (message.get(start).equals(message.get(q))) {
+				i++;
+			}
+		}
+		return i;
+	}
+	
+	public int scenario6(){
+		int i = 1;
+
+		for (int start = 0; start < t; start++) {
+
+			if (message.get(start).equals(message.get(t))) {
+				i++;
+			}
+		}
+		return i;
+	}
+	
+	public void scenario7(){
+		int a=scenario5();
+		int b=scenario6();
+		String c=message.get(q);
+		String d=message.get(t);
+		String[] e=c.split(" ",2);
+		String[] f=d.split(" ",2);
+		int x=0;
+		int alpha=0;
+		int beta=0;
+		int aaa=0;
+		if(a-1==0 && b-1==0){
+			int g=result.indexOf(e[1]);
+			int h=result.indexOf(f[1]);
+			result.set(g, f[1]);
+			result.set(h, e[1]);
+		}
+		
+		else if(a-1==0 && b-1!=0){
+			for (int i = 0; b != x; i++) {
+
+				if (result.get(i).equals(f[1])) {
+					x++;
+					if (x == b) {
+					    int hh=result.indexOf(e[1]);
+						result.set(hh,f[1]);
+						result.set(i,e[1]);
+					}
+				}
+		}
+	}
+		
+		else if(a-1!=0 && b-1==0){
+			for (int i = 0; a != x; i++) {
+
+				if (result.get(i).equals(e[1])) {
+					x++;
+					if (x == a) {
+					    int hh=result.indexOf(f[1]);
+						result.set(hh,e[1]);
+						result.set(i,f[1]);
+					}
+				}
+		}
+	}
+		else{
+			for (int i = 0; a != x; i++) {
+
+				if (result.get(i).equals(e[1])) {
+					x++;
+					if (x == a) {
+					    alpha=i;
+					}
+				}
+
+		}
+	
+			for (int i = 0; b != aaa; i++) {
+                   
+				if (result.get(i).equals(f[1])) {
+					aaa++;
+					if (x == b) {
+					   beta=i;
+					}
+				}
+
+}
+			result.set(alpha,f[1]);
+			result.set(beta,e[1]);
+			System.out.println(alpha+"/n"+beta);
+	}
+}
+	
+	public void repeat(){
+		JFrame frame=new JFrame();
+		frame.setVisible(true);
+		JPanel panel=new JPanel();
+		JButton srepeat= new JButton("Start Repeat");
+		JButton strepeat= new JButton("Stop Repeat");
+		panel.add(srepeat);
+		panel.add(strepeat);
+		frame.add(panel);
+		
+		srepeat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				start();
+			}
+		});
+		
+		strepeat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				stop();
+			}
+		});
+		
+	}
+	
+	public void start(){
+		message.add("Repeat Started");
+		result.add("/~repeat");
+	}
+	
+	public void stop(){
+		message.add("Repeat Stopped");
+		result.add("/~endrepeat");
+	}
+	
+	public void soundbutton(){
+		message.add("Sound added");
+		result.add("/~sound:");
+	}
+	
+	public void voicebutton(){
+		message.add("Voice added");
+		result.add("/~set-voice:");
+	}
 }
