@@ -51,6 +51,7 @@ public class Frame {
 	int t;
 	JButton sound;
 
+	
 	// for the scenario file
 	JFrame frames = new JFrame();
 	JTextArea sce = new JTextArea(10, 10);
@@ -80,7 +81,7 @@ public class Frame {
 		JButton choice = new JButton("Choice Scenario");
 
 		GridBagConstraints gg = new GridBagConstraints();
-		// gg.fill = GridBagConstraints.HORIZONTAL;
+		// button positioning
 		gg.weightx = 0;
 		gg.gridx = 1;
 		gg.gridy = 1;
@@ -148,7 +149,11 @@ public class Frame {
 		scrollV.setRowHeaderView(tln);
 		frame.add(scrollV);
 		frame.add(panel, BorderLayout.SOUTH);
-
+        
+		message.add("Set String or char on braille cell");
+        message.add("SeT voice");
+        
+        displayLog();
 		// menubar
 
 		JMenuBar menuBar = new JMenuBar();
@@ -163,7 +168,7 @@ public class Frame {
 		menu.add(item3);
 		frame.setJMenuBar(menuBar);
 
-		// scenario Frame
+		// scenario Frame different class needed
 
 		frames.setVisible(true);
 
@@ -180,56 +185,76 @@ public class Frame {
 		sce.setText(String.join("\n", result));
 
 		// buttons action listener
-
+		
 		button.addActionListener(new ActionListener() {
-
+			
 			public void actionPerformed(ActionEvent e) {
-
-				message.add("Message: " + text.getText());
-				result.add(text.getText());
-				log.setText(String.join("\n", message));
-				sce.setText(String.join("\n", result));
-
+				String a=disablebutton();
+				String b=disablebutton5();
+				if(a.equals("true") && b.equals("true")){
+					message.add("Message: " + text.getText());
+					result.add(text.getText());
+					log.setText(String.join("\n", message));
+					sce.setText(String.join("\n", result));
+	
+				}
+				
+				
 			}
 
 		});
-
+        // frame open
 		delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				frame1.setVisible(true);
-				JPanel panel3 = new JPanel();
-				JLabel h = new JLabel("Enter the line number of the question/message");
-				panel3.add(h);
-				panel3.add(d);
-				panel3.add(ok);
-				frame1.add(panel3);
+                String b=disablebutton();
+                String c=disablebutton2();
+                String a=disablebutton5();
+                if(b.equals("true") && a.equals("true")&& c.equals("true")){
+                	frame1.setVisible(true);
+    				JPanel panel3 = new JPanel();
+    				JLabel h = new JLabel("Enter the line number of the question/message");
+    				panel3.add(h);
+    				panel3.add(d);
+    				panel3.add(ok);
+    				frame1.add(panel3);	
+                }
+				
 
 			}
 		});
 
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				String as = d.getText();
 				a = Integer.parseInt(as) - 1;
 				z = message.get(a);
-				number = scenario();
-				arr = z.split(" ", 2);
-				scenario2();
-				message.remove(a);
-				frame1.dispose();
-				frame.setVisible(true);
-
+				char res=z.charAt(0);
+				if(res=='M'||res=='Q'){
+					number = scenario();
+					arr = z.split(" ", 2);
+					scenario2();
+					message.remove(a);
+					frame1.setVisible(false);
+					frame.setVisible(true);
+					displayLog();
+	
+				}
+				
 			}
 		});
-
+       
 		question.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				message.add("Question: " + text.getText());
-				result.add(text.getText());
-				log.setText(String.join("\n", message));
-				sce.setText(String.join("\n", result));
+                String a=disablebutton();
+                String b=disablebutton5();
+                if (a.equals("true") && b.equals("true")){
+                	message.add("Question: " + text.getText());
+    				result.add(text.getText());
+    				log.setText(String.join("\n", message));
+    				sce.setText(String.join("\n", result));	
+                }
+				
 			}
 		});
 
@@ -247,7 +272,11 @@ public class Frame {
 
 		reorder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				reorder();
+				String a=disablebutton2();
+				if(a.equals("true")){
+					reorder();	
+				}
+				
 			}
 		});
 
@@ -259,10 +288,14 @@ public class Frame {
 
 		edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				edit();
+				String a=disablebutton2();
+				if(a.equals("true")){
+					edit();	
+				}
+				
 			}
 		});
-
+        // edit oki
 		oki.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				oki();
@@ -289,43 +322,73 @@ public class Frame {
 
 		repeat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				repeat();
+				String a=disablebutton();
+				String b=disablebutton5();
+				if(a.equals("true")&&b.equals("true")){
+					repeat();	
+				}
+				
 			}
 		});
 
 		sound.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				soundbutton();
+				String a=disablebutton();
+				String b=disablebutton5();
+				if(a.equals("true")&&b.equals("true")){
+					soundbutton();	
+				}
+				
 			}
 		});
 
 		voice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				voicebutton();
+				String a=disablebutton7();
+				if(a.equals("true")){
+					voicebutton();	
+				}
+				
 			}
 		});
 
 		charsetting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				voicebutton();
+				String a=disablebutton6();
+				if(a.equals("true")){
+					voicebutton();	
+				}
 			}
 		});
 
 		stringsetting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				stringsetting();
+				String a=disablebutton6();
+				if(a.equals("true")){
+					stringsetting();	
+				}
 			}
 		});
-
+       // button set 
 		choices.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				choices();
+				String a=disablebutton3();
+				String b=disablebutton5();
+				
+				if(a.equals("true")&&b.equals("true")){
+					choices();	
+				}
+				
 			}
 		});
-
+       //correct / incorrect scenario
 		choice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				choice();
+				String a=disablebutton4();
+				if(a.equals("true")){
+					choice();	
+				}
+				
 			}
 		});
 
@@ -423,13 +486,19 @@ public class Frame {
 		t = Integer.parseInt(b) - 1;
 		String e = message.get(q);
 		String f = message.get(t);
-		scenario5();
-		scenario6();
-		scenario7();
-		message.set(q, f);
-		message.set(t, e);
-		frame4.dispose();
-		frame.setVisible(true);
+		char one=e.charAt(0);
+		char two=f.charAt(0);
+		if(one=='M'||one=='Q'&& two=='M'||two=='Q'){
+			scenario5();
+			scenario6();
+			scenario7();
+			message.set(q, f);
+			message.set(t, e);
+			frame4.dispose();
+			frame.setVisible(true);
+			displayLog();	
+		}
+		
 	}
 
 	public void edit() {
@@ -467,19 +536,24 @@ public class Frame {
 		String b = e.getText();
 		c = Integer.parseInt(b) - 1;
 		String f = message.get(c);
-		scenario3();
-		scenario4();
-		char e = f.charAt(0);
-		if (e == 'M') {
-			String a = "Message: " + d.getText();
-			message.set(c, a);
-		} else if (e == 'Q') {
-			String a = "Question: " + d.getText();
-			message.set(c, a);
-		}
+		char res=f.charAt(0);
+		if(res=='M'||res=='Q'){
+			scenario3();
+			scenario4();
+			char e = f.charAt(0);
+			if (e == 'M') {
+				String a = "Message: " + d.getText();
+				message.set(c, a);
+			} else if (e == 'Q') {
+				String a = "Question: " + d.getText();
+				message.set(c, a);
+			}
 
-		frame3.dispose();
-		frame.setVisible(true);
+			frame3.dispose();
+			frame.setVisible(true);
+			displayLog();	
+		}
+		
 
 	}
 
@@ -499,7 +573,11 @@ public class Frame {
 	public void yes() {
 		message.clear();
 		frame2.dispose();
+		message.add("Set String or char on braille cell");
+		message.add("SeT voice");
 		frame.setVisible(true);
+		displayLog();
+		
 	}
 
 	public void no() {
@@ -679,8 +757,7 @@ public class Frame {
 		JPanel panel = new JPanel();
 		JButton srepeat = new JButton("Start Repeat");
 		JButton strepeat = new JButton("Stop Repeat");
-		
-		
+
 		panel.add(srepeat);
 		panel.add(strepeat);
 		frame.add(panel);
@@ -688,12 +765,14 @@ public class Frame {
 		srepeat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				start();
+				displayLog();
 			}
 		});
 
 		strepeat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				stop();
+				displayLog();
 			}
 		});
 
@@ -702,28 +781,31 @@ public class Frame {
 	public void start() {
 		message.add("Repeat Started");
 		result.add("/~repeat");
+		
 	}
 
 	public void stop() {
 		message.add("Repeat Stopped");
 		result.add("/~endrepeat");
 		result.add("");
-		JFrame frame=new JFrame();
+		
+		JFrame frame = new JFrame();
 		frame.setVisible(true);
-		JPanel panel=new JPanel();
-		JLabel label=new JLabel("Button for repeat(Not button 1 or 2):");
-	    JTextField text=new JTextField(10);
-	    JButton ok=new JButton("ok");
-	    panel.add(label);
-	    panel.add(text);
-	    panel.add(ok);
-	    frame.add(panel);
-	    ok.addActionListener(new ActionListener() {
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel("Button for repeat(Not button 1 or 2):");
+		JTextField text = new JTextField(10);
+		JButton ok = new JButton("ok");
+		panel.add(label);
+		panel.add(text);
+		panel.add(ok);
+		frame.add(panel);
+		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				result.add("");
-				int a=Integer.parseInt(text.getText())-1;
-				String b=Integer.toString(a);
-				result.add("/~repeat-button:"+b);
+				int a = Integer.parseInt(text.getText()) - 1;
+				String b = Integer.toString(a);
+				result.add("/~repeat-button:" + b);
+				
 			}
 		});
 		
@@ -732,11 +814,21 @@ public class Frame {
 	public void soundbutton() {
 		message.add("Sound added");
 		result.add("/~sound:");
+		displayLog();
 	}
 
 	public void voicebutton() {
-		message.add("Voice added");
-		result.add("/~set-voice:");
+		
+		int f=message.size();
+		for(int i=0;i<f;i++){
+			
+			if(message.get(i).equals("SeT voice")){
+			message.remove(i);
+			message.add(i,"Voice added");
+			result.add("/~set-voice:");
+			}
+		}
+		displayLog();
 	}
 
 	public void stringsetting() {
@@ -753,10 +845,21 @@ public class Frame {
 
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				message.add(d.getText());
-				result.add("/~disp-string:" + d.getText());
+				String a="String: "+d.getText();
+				int f=message.size();
+				for(int i=0;i<f;i++){
+					
+					if(message.get(i).equals("Set String or char on braille cell")){
+					message.remove(i);
+					message.add(i,a);
+					result.add("/~disp-string:" + d.getText());
+					}
+				}
+				displayLog();
+				
 			}
 		});
+		
 	}
 
 	public void choices() {
@@ -803,10 +906,11 @@ public class Frame {
 				result.add("/~skip-button:" + c + " ONEE");
 				result.add("/~skip-button:" + d + " TWOO");
 				result.add("/~user-input");
-                result.add("");
+				result.add("");
+				displayLog();
 			}
 		});
-
+		
 	}
 
 	public void choice() {
@@ -830,9 +934,9 @@ public class Frame {
 		JButton ok = new JButton("Ok");
 
 		GridBagConstraints gg = new GridBagConstraints();
-	
+
 		gg.weightx = 0;
-		
+
 		gg.gridx = 0;
 		gg.gridy = 10;
 		panel.add(e, gg);
@@ -901,7 +1005,9 @@ public class Frame {
 
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				message.add("Correct scenario added.\n  Sound added \n  Message: " + f.getText());
+				message.add("Correct scenario added.");
+				message.add("Sound added");
+				message.add("message: " + f.getText());
 				if (h.getText().equals("1")) {
 					result.add("/~ONEE");
 					result.add("/~sound:");
@@ -916,27 +1022,162 @@ public class Frame {
 					result.add("");
 				}
 
-				message.add("Incorrect scenario added.\n  Sound added \n  Message: " + m.getText());
-					if (j.getText().equals("2")) {
-						result.add("/~TWOO");
-						result.add("/~sound:");
-						result.add(m.getText());
-						result.add("/~skip:NEXTT");
-					} else if (j.getText().equals("1")) {
-						result.add("/~ONEE");
-						result.add("/~sound:");
-						result.add(m.getText());
-						result.add("/~skip:NEXTT");
-					}
-                
-				 result.add("");	
-                 result.add("/~NEXTT");
-                 result.add("");
-                 result.add("/~disp-clearALL");
-                 result.add("/~reset-buttons");
+				message.add("Incorrect scenario added.");
+				message.add("Sound added");
+				message.add("message: " + m.getText());
+				message.add("Next");
+				message.add("Set String or char on braille cell");
+				message.add("SeT voice");
+				
+				if (j.getText().equals("2")) {
+					result.add("/~TWOO");
+					result.add("/~sound:");
+					result.add(m.getText());
+					result.add("/~skip:NEXTT");
+				} else if (j.getText().equals("1")) {
+					result.add("/~ONEE");
+					result.add("/~sound:");
+					result.add(m.getText());
+					result.add("/~skip:NEXTT");
+				}
+
+				result.add("");
+				result.add("/~NEXTT");
+				result.add("");
+				result.add("/~disp-clearALL");
+				result.add("/~reset-buttons");
+				displayLog();
 			}
 		});
-
+		
 	}
 
+	public void displayLog(){
+		log.setText(String.join("\n", message));
+	}
+	
+	public String disablebutton(){
+		if(message.contains("Set String or char on braille cell")||message.contains("SeT voice")){
+			
+			String forfalse="false";
+			return forfalse;
+		}
+		else{
+			
+			String fortrue="true";
+			return fortrue;
+		}
+	}
+	
+	public String disablebutton2(){
+		int size=message.size();
+		String c="";
+		for(int i=0;i<size;i++){
+			
+			String a=message.get(i);
+			char b=a.charAt(0);
+			if(b=='M' || b=='Q'){
+				i=100000000;
+				c="true";
+				
+			}
+			else{
+				c="false";
+				
+			}
+		}
+		return c;
+	}
+	
+	public String disablebutton3(){
+		int b=message.size()-1;
+		String d="";
+		for(int i=0;i<2;i++){
+			int a=b-i;
+			String c=message.get(a);
+			char e=c.charAt(0);
+			if(e=='M'||e=='Q'){
+				i=2;
+				d="true";
+			}
+			else{
+				d="false";
+			}
+		}
+	return d;
+	}
+	
+	public String disablebutton4(){
+		int a=message.size()-1;
+		String b="";
+		for(int i=0;i<2;i++){
+			int c=a-i;
+			String d=message.get(c);
+			char e=d.charAt(0);
+			if(e=='B'){
+				i=2;
+				b="true";
+				}
+			else{
+				b="false";
+			}
+		}
+		return b;
+	}
+	
+	public String disablebutton5(){
+		int a=message.size();
+		int button=0;
+		int set=0;
+		String h="";
+	    for(int i=0;i<a;i++){
+	    	String b=message.get(i);
+	    	char c=b.charAt(0);
+	    	char d=b.charAt(0);
+	    	if(c=='B'){
+	    		button=i;
+	    	}
+	    	else if(d=='N'){
+	    		set=i;
+	    	}
+	    }
+	   if(set<button){
+		   h="false";
+		   
+	   }
+	   else if(button<set){
+		   h="true";
+		   
+	   }
+	   else if(button==set){
+		   h="true";
+	   }
+	   return h;
+	}	
+	
+	public String disablebutton6(){
+		
+		if(message.contains("Set String or char on braille cell")){
+			String a="true";
+			return a;
+		}
+		else{
+			String b="false";
+			return b;
+		}
+	}
+	
+    public String disablebutton7(){
+		
+		if(message.contains("SeT voice")){
+			String a="true";
+			return a;
+		}
+		else{
+			String b="false";
+			return b;
+		}
+	}
+    
+    
 }
