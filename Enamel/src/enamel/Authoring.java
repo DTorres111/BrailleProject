@@ -3,7 +3,7 @@ package enamel;
 import javax.swing.JFrame;
 
 
-public class ToyAuthoring {
+public class Authoring {
 
 	/*public static void main(String[] args) {
 		SoundPlayer s = new SoundPlayer();
