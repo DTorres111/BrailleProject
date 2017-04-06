@@ -42,8 +42,8 @@ public class AddToFile extends JFrame {
 	JTextField e = new JTextField(10);
 	JTextField d = new JTextField(10);
 	JFrame frame3;
-	String choicecorrect;
-	String choicewrong;
+	String choicecorrect="";
+	String choicewrong="";
 
 	private JTextField input;
 	// Array to store inputs
@@ -1520,6 +1520,7 @@ public class AddToFile extends JFrame {
 	}
 
 	public void editSound() {
+		
 		// here I want you to call the sound gui frame that comes when we press
 		// the sound button
 		// from that box the user will select the new sound he wants to add in
@@ -1530,15 +1531,19 @@ public class AddToFile extends JFrame {
 		// file it will open the sound dialouge box once the user clicks ok on
 		// the edit JFrame cause we cant make the user type the sound file name
 		// as he might make mistake or maybe don't even remember
+		
+		
 		int number = scenario3();
 		int e = 0;
 		String w = message.get(lineNumber);
 		String[] y = w.split(" ", 2);
+	    
 		if (number - 1 == 0) {
 			int num = result.indexOf("/~sound:" + y[1]);
 			// here I want you to add the file name that the user selected above
 			// eg:result.set(num,"/~sound:"+the filename of sound the user
 			// added)
+			
 			result.set(num, "/~sound:" + d.getText());
 			// here I want you to add the file name that the user selected above
 			// eg:message.set(c,"sound: "+the filename of sound the user added)
@@ -1808,49 +1813,86 @@ public class AddToFile extends JFrame {
 
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				message.add("Correct scenario added.");
-				message.add("sound: ");
-				message.add("Message: " + f.getText());
-				if (choicecorrect.equals("1")) {
-					result.add("/~ONEE");
-					result.add("/~sound:");
-					result.add(f.getText());
-					// result.add("/~skip:NEXTT");
+				if(choicecorrect.equals("")&&choicewrong.equals("")){
+					JFrame frame=new JFrame();
+					frame.setVisible(true);
+					JPanel panel=new JPanel();
+					JLabel label=new JLabel("The buttons for correct and incorrect scenarios are not yet added. Please add the buttons using set choice first");
+					JButton ok=new JButton("ok");
+					panel.add(label);
+					panel.add(ok);
+					frame.add(panel);
+					ok.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							frame.dispose();
+							
+						}
+					});
+				}else{
+					message.add("Correct scenario added.");
+					message.add("sound: ");
+					message.add("Message: " + f.getText());
+					if (choicecorrect.equals("1")) {
+						result.add("/~ONEE");
+						result.add("/~sound:");
+						result.add(f.getText());
+						// result.add("/~skip:NEXTT");
+						// result.add("");
+					} else if (choicecorrect.equals("2")) {
+						result.add("/~TWOO");
+						result.add("/~sound:");
+						result.add(f.getText());
+						// result.add("/~skip:NEXTT");
+						// result.add("");
+					}
+
+					message.add("Incorrect scenario added.");
+					message.add("sound: ");
+					message.add("Message: " + m.getText());
+
+					if (choicewrong.equals("2")) {
+						result.add("/~TWOO");
+						result.add("/~sound:");
+						result.add(m.getText());
+						result.add("/~skip:NEXTT");
+					} else if (choicewrong.equals("1")) {
+						result.add("/~ONEE");
+						result.add("/~sound:");
+						result.add(m.getText());
+						// result.add("/~skip:NEXTT");
+					}
+
 					// result.add("");
-				} else if (choicecorrect.equals("2")) {
-					result.add("/~TWOO");
-					result.add("/~sound:");
-					result.add(f.getText());
-					// result.add("/~skip:NEXTT");
+					// result.add("/~NEXTT");
 					// result.add("");
+					// result.add("/~disp-clearALL");
+					// result.add("/~reset-buttons");
+					displayLog();
 				}
-
-				message.add("Incorrect scenario added.");
-				message.add("sound: ");
-				message.add("Message: " + m.getText());
-
-				if (choicewrong.equals("2")) {
-					result.add("/~TWOO");
-					result.add("/~sound:");
-					result.add(m.getText());
-					result.add("/~skip:NEXTT");
-				} else if (choicewrong.equals("1")) {
-					result.add("/~ONEE");
-					result.add("/~sound:");
-					result.add(m.getText());
-					// result.add("/~skip:NEXTT");
-				}
-
-				// result.add("");
-				// result.add("/~NEXTT");
-				// result.add("");
-				// result.add("/~disp-clearALL");
-				// result.add("/~reset-buttons");
-				displayLog();
+				
 
 			}
 		});
 
+	}
+	
+	public void SOUND(){
+		JFileChooser fileChooser = new JFileChooser("Audio Files");
+		int ret = fileChooser.showOpenDialog(null);
+		if (ret == JFileChooser.APPROVE_OPTION) {
+			File f = fileChooser.getSelectedFile();
+			try {
+
+				message.add("Sound to Play: " + f.getName());
+				String a = ("/~sound:" + f.getName());
+				result.add(a);
+				log.setText(String.join("\n", message));
+				sce.setText(String.join("\n", result));
+
+			} catch (Exception ee) {
+				System.out.println("cant read");
+			}
+		}
 	}
 
 }
