@@ -29,12 +29,13 @@ public class SoundPlayer
 	public SoundPlayer() 
 	{
 		//The first two lines allow the use of the mbrola voices.
-		String currDir = System.getProperty("user.dir");
-		System.setProperty("mbrola.base", currDir + File.separator + "mbrola");
-		vm = VoiceManager.getInstance(); 
-		changeVoice ("1");
-		repeatedText = new ArrayList<String> ();
-		userInput = false;
+				//String currDir = System.getProperty("C:/Users/RABIA/Desktop/MBROLA/mbr301d");
+				System.setProperty("mbrola.base", "C:/Users/RABIA/Desktop/MBROLA/mbr301d");
+				vm = VoiceManager.getInstance(); 
+				changeVoice ("1");
+				repeatedText = new ArrayList<String> ();
+				userInput = false;
+		
 	}
 	
 	/*
@@ -641,12 +642,17 @@ public class SoundPlayer
 	 */
 	private void setCellAndButton () 
 	{
+		
+		
 		try
 		{
 			cellNum = Integer.parseInt(fileScanner.nextLine().split("\\s")[1]);
 			buttonNum = Integer.parseInt(fileScanner.nextLine().split("\\s")[1]);
+			System.out.println("here in play");
 			sim = new Simulator (cellNum, buttonNum);
 		}
+		
+		
 		catch (Exception e)
 		{
 			

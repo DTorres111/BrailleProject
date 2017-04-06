@@ -42,7 +42,7 @@ public class Simulator {
 
 	int brailleCellNumber;
 	int jButtonNumber;
-	private JFrame frame;
+	protected JFrame frame;
 	private GridLayout cellGrid = new GridLayout(4, 2);
 	LinkedList<JPanel> panelList = new LinkedList<JPanel>();
 	ArrayList<JRadioButton> pins = new ArrayList<JRadioButton>(8);
@@ -65,7 +65,7 @@ public class Simulator {
 	 *             if one or both of the two parameters is negative or 0
 	 */
 	public Simulator(int brailleCellNumber, int jButtonNumber) {
-
+		System.out.println("here in sim");
 		if (brailleCellNumber <= 0 || jButtonNumber <= 0)
 			throw new IllegalArgumentException("Non-positive integer entered.");
 
@@ -77,6 +77,7 @@ public class Simulator {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout());
 
+		System.out.println("here in sim1");
 		for (int i = 0; i < brailleCellNumber; i++) {
 
 			JPanel panel = new JPanel(cellGrid);
@@ -93,6 +94,7 @@ public class Simulator {
 			panel.setVisible(true);
 			pinList.add(pins);
 
+			System.out.println("here in sim2");
 			BrailleCell cell = new BrailleCell(pins.get(0), pins.get(1), pins.get(2), pins.get(3), pins.get(4),
 					pins.get(5), pins.get(6), pins.get(7));
 			panelList.add(panel);
@@ -116,6 +118,7 @@ public class Simulator {
 		frame.getContentPane().add(southPanel, BorderLayout.SOUTH);
 
 		frame.repaint();
+		System.out.println("here in sim3");
 		frame.setVisible(true);
 
 	}

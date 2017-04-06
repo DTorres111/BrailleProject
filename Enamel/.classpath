@@ -2,5 +2,15 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/RABIA/AppData/Roaming/SPB_Data/git/enamelSir/Enamel/lib/jsapi.jar"/>
+	<classpathentry kind="lib" path="C:/Users/RABIA/AppData/Roaming/SPB_Data/git/enamelSir/Enamel/lib/cmu_time_awb.jar"/>
+	<classpathentry kind="lib" path="C:/Users/RABIA/AppData/Roaming/SPB_Data/git/enamelSir/Enamel/lib/cmu_us_kal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/RABIA/AppData/Roaming/SPB_Data/git/enamelSir/Enamel/lib/cmudict04.jar"/>
+	<classpathentry kind="lib" path="C:/Users/RABIA/AppData/Roaming/SPB_Data/git/enamelSir/Enamel/lib/cmulex.jar"/>
+	<classpathentry kind="lib" path="C:/Users/RABIA/AppData/Roaming/SPB_Data/git/enamelSir/Enamel/lib/cmutimelex.jar"/>
+	<classpathentry kind="lib" path="C:/Users/RABIA/AppData/Roaming/SPB_Data/git/enamelSir/Enamel/lib/en_us.jar"/>
+	<classpathentry kind="lib" path="C:/Users/RABIA/AppData/Roaming/SPB_Data/git/enamelSir/Enamel/lib/freetts.jar"/>
+	<classpathentry kind="lib" path="C:/Users/RABIA/AppData/Roaming/SPB_Data/git/enamelSir/Enamel/lib/freetts-jsapi10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/RABIA/AppData/Roaming/SPB_Data/git/enamelSir/Enamel/lib/mbrola.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
