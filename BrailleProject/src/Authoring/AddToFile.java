@@ -38,9 +38,12 @@ import javax.swing.JOptionPane;
 public class AddToFile extends JFrame {
 
 	private JFrame frame;
+	// variables added by usman
 	JTextField e = new JTextField(10);
 	JTextField d = new JTextField(10);
 	JFrame frame3;
+	String charAction1;
+	String charAction2;
 
 	private JTextField input;
 	// Array to store inputs
@@ -621,6 +624,8 @@ public class AddToFile extends JFrame {
 						deleteSound();
 					} else if (one == 'V') {
 						deleteVoice();
+					} else if (one=='C'){
+						deleteChar();
 					}
 
 					deleteFrame.dispose();
@@ -1034,7 +1039,7 @@ public class AddToFile extends JFrame {
 				edit();
 			}
 		});
-		
+
 		btnSetChoices.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				choices();
@@ -1385,6 +1390,31 @@ public class AddToFile extends JFrame {
 	}
 
 	// methods for all the delete types
+	public void deleteChar() {
+		int number = deletionIndex();
+		String a = message.get(lineNumber);
+		char b = a.charAt(6);
+		char d = a.charAt(14);
+		int c = 0;
+		if (number - 1 == 0) {
+			int e = result.indexOf("/~disp-cell-char:" + Character.toString(d) + " " + Character.toString(b));
+			result.remove(e);
+			message.remove(lineNumber);
+		} else {
+			for (int i = 0; number != c; i++) {
+
+				if (result.get(i).equals("/~disp-cell-char:" + Character.toString(d) + " " + Character.toString(b))) {
+					c++;
+					if (c == number) {
+						result.remove(i);
+						message.remove(lineNumber);
+					}
+				}
+
+			}
+		}
+	}
+
 	public void deleteString() {
 		int number = deletionIndex();
 		String res = delArray[1];
@@ -1531,6 +1561,29 @@ public class AddToFile extends JFrame {
 		}
 	}
 
+	public void editChar() {
+		int number = scenario3();
+		int e = 0;
+		String w = message.get(lineNumber);
+		char a = w.charAt(6);
+		char b = w.charAt(14);
+		if (number - 1 == 0) {
+			int num = result.indexOf("/~disp-cell-char:" + Character.toString(b) + " " + Character.toString(a));
+			result.set(num, "/~disp-cell-char:" + Character.toString(b) + " " + d.getText());
+			message.set(lineNumber, "Char: " + d.getText() + " Cell: " + Character.toString(b));
+		} else {
+			for (int i = 0; number != e; i++) {
+				if (result.get(i).equals("/~disp-cell-char:" + Character.toString(b) + " " + Character.toString(a)))
+					;
+				e++;
+				if (e == number) {
+					result.set(i, "/~disp-cell-char:" + Character.toString(b) + " " + d.getText());
+					message.set(lineNumber, "Char: " + d.getText() + " Cell: " + Character.toString(b));
+				}
+			}
+		}
+	}
+
 	public void editString() {
 		int number = scenario3();
 		int e = 0;
@@ -1659,6 +1712,8 @@ public class AddToFile extends JFrame {
 				editSound();
 			} else if (one == 'V') {
 				editVoice();
+			} else if (one == 'C') {
+				editChar();
 			}
 
 			frame3.dispose();
@@ -1668,7 +1723,7 @@ public class AddToFile extends JFrame {
 		}
 
 	}
-	
+
 	// methods for the set choice button action listner
 	public void choice() {
 		JFrame frame = new JFrame();
@@ -1716,7 +1771,8 @@ public class AddToFile extends JFrame {
 
 		gg.gridx = 1;
 		gg.gridy = 7;
-	//	panel.add(sound, gg);  again make a new sound button and add action listner to it
+		// panel.add(sound, gg); again make a new sound button and add action
+		// listner to it
 
 		gg.gridx = 0;
 		gg.gridy = 6;
@@ -1744,7 +1800,8 @@ public class AddToFile extends JFrame {
 
 		gg.gridx = 1;
 		gg.gridy = 3;
-		//panel.add(sound, gg); please make a new sound button for this part and then an action listner which will open the sound window
+		// panel.add(sound, gg); please make a new sound button for this part
+		// and then an action listner which will open the sound window
 
 		gg.gridx = 0;
 		gg.gridy = 2;
@@ -1769,45 +1826,42 @@ public class AddToFile extends JFrame {
 					result.add("/~ONEE");
 					result.add("/~sound:");
 					result.add(f.getText());
-					//result.add("/~skip:NEXTT");
-					//result.add("");
+					// result.add("/~skip:NEXTT");
+					// result.add("");
 				} else if (h.getText().equals("2")) {
 					result.add("/~TWOO");
 					result.add("/~sound:");
 					result.add(f.getText());
-					//result.add("/~skip:NEXTT");
-					//result.add("");
+					// result.add("/~skip:NEXTT");
+					// result.add("");
 				}
 
 				message.add("Incorrect scenario added.");
 				message.add("sound: ");
 				message.add("Message: " + m.getText());
-				
-				
+
 				if (j.getText().equals("2")) {
 					result.add("/~TWOO");
 					result.add("/~sound:");
 					result.add(m.getText());
 					result.add("/~skip:NEXTT");
 				} else if (j.getText().equals("1")) {
-					result.add("/~ONEE");    
+					result.add("/~ONEE");
 					result.add("/~sound:");
 					result.add(m.getText());
-				//	result.add("/~skip:NEXTT");
+					// result.add("/~skip:NEXTT");
 				}
 
-			//	result.add("");
-			//	result.add("/~NEXTT");
-			//	result.add("");
-			//	result.add("/~disp-clearALL");
-			//	result.add("/~reset-buttons");
+				// result.add("");
+				// result.add("/~NEXTT");
+				// result.add("");
+				// result.add("/~disp-clearALL");
+				// result.add("/~reset-buttons");
 				displayLog();
-				
+
 			}
 		});
-		
-	}
-	
-	
-}
 
+	}
+
+}
