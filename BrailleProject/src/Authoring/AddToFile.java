@@ -42,8 +42,8 @@ public class AddToFile extends JFrame {
 	JTextField e = new JTextField(10);
 	JTextField d = new JTextField(10);
 	JFrame frame3;
-	String charAction1;
-	String charAction2;
+	String choicecorrect;
+	String choicewrong;
 
 	private JTextField input;
 	// Array to store inputs
@@ -1362,6 +1362,8 @@ public class AddToFile extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				message.add("Button " + d.getText() + " set as correct option.");
 				message.add("Button " + f.getText() + " set as incorrect option.");
+				choicecorrect=d.getText();
+				choicewrong=f.getText();
 				int a = Integer.parseInt(d.getText()) - 1;
 				int b = Integer.parseInt(f.getText()) - 1;
 				String c = Integer.toString(a);
@@ -1732,14 +1734,14 @@ public class AddToFile extends JFrame {
 		JLabel e = new JLabel(
 				"Type in al the details for the correct/incorrect scenario. Be sure to make no mistake as this part cannot be edited later.");
 		JLabel a = new JLabel("Scenario for correct option");
-		JLabel g = new JLabel("Button for correct option(Just type in button number):");
-		JTextField h = new JTextField(10);
+	
+		
 		JLabel c = new JLabel("Add sound by pressing sound button");
 		JLabel d = new JLabel("Type any message here:");
 		JTextField f = new JTextField(10);
 		JLabel b = new JLabel("Scenario for incorrect option");
-		JLabel i = new JLabel("Button for incorrect option(Just type in button number):");
-		JTextField j = new JTextField(10);
+		
+		
 		JLabel k = new JLabel("Add sound by pressing sound button");
 		JLabel l = new JLabel("Type any message here:");
 		JTextField m = new JTextField(10);
@@ -1757,14 +1759,7 @@ public class AddToFile extends JFrame {
 		gg.gridy = 9;
 		panel.add(a, gg);
 
-		gg.gridx = 0;
-		gg.gridy = 8;
-		panel.add(g, gg);
-
-		gg.gridx = 1;
-		gg.gridy = 8;
-		panel.add(h, gg);
-
+		
 		gg.gridx = 0;
 		gg.gridy = 7;
 		panel.add(c, gg);
@@ -1786,13 +1781,7 @@ public class AddToFile extends JFrame {
 		gg.gridy = 5;
 		panel.add(b, gg);
 
-		gg.gridx = 0;
-		gg.gridy = 4;
-		panel.add(i, gg);
-
-		gg.gridx = 1;
-		gg.gridy = 4;
-		panel.add(j, gg);
+		
 
 		gg.gridx = 0;
 		gg.gridy = 3;
@@ -1822,13 +1811,13 @@ public class AddToFile extends JFrame {
 				message.add("Correct scenario added.");
 				message.add("sound: ");
 				message.add("Message: " + f.getText());
-				if (h.getText().equals("1")) {
+				if (choicecorrect.equals("1")) {
 					result.add("/~ONEE");
 					result.add("/~sound:");
 					result.add(f.getText());
 					// result.add("/~skip:NEXTT");
 					// result.add("");
-				} else if (h.getText().equals("2")) {
+				} else if (choicecorrect.equals("2")) {
 					result.add("/~TWOO");
 					result.add("/~sound:");
 					result.add(f.getText());
@@ -1840,12 +1829,12 @@ public class AddToFile extends JFrame {
 				message.add("sound: ");
 				message.add("Message: " + m.getText());
 
-				if (j.getText().equals("2")) {
+				if (choicewrong.equals("2")) {
 					result.add("/~TWOO");
 					result.add("/~sound:");
 					result.add(m.getText());
 					result.add("/~skip:NEXTT");
-				} else if (j.getText().equals("1")) {
+				} else if (choicewrong.equals("1")) {
 					result.add("/~ONEE");
 					result.add("/~sound:");
 					result.add(m.getText());
