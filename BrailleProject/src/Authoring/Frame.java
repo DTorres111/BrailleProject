@@ -50,6 +50,7 @@ public class Frame {
 	int q;
 	int t;
 	JButton sound;
+	String[] forString;
 
 	
 	// for the scenario file
@@ -189,15 +190,15 @@ public class Frame {
 		button.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				String a=disablebutton();
-				String b=disablebutton5();
-				if(a.equals("true") && b.equals("true")){
+				//String a=disablebutton();
+				//String b=disablebutton5();
+				//if(a.equals("true") && b.equals("true")){
 					message.add("Message: " + text.getText());
 					result.add(text.getText());
 					log.setText(String.join("\n", message));
 					sce.setText(String.join("\n", result));
 	
-				}
+			//	}
 				
 				
 			}
@@ -206,10 +207,10 @@ public class Frame {
         // frame open
 		delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                String b=disablebutton();
-                String c=disablebutton2();
-                String a=disablebutton5();
-                if(b.equals("true") && a.equals("true")&& c.equals("true")){
+             //   String b=disablebutton();
+             //   String c=disablebutton2();
+             //   String a=disablebutton5();
+              //  if(b.equals("true") && a.equals("true")&& c.equals("true")){
                 	frame1.setVisible(true);
     				JPanel panel3 = new JPanel();
     				JLabel h = new JLabel("Enter the line number of the question/message");
@@ -217,7 +218,7 @@ public class Frame {
     				panel3.add(d);
     				panel3.add(ok);
     				frame1.add(panel3);	
-                }
+               // }
 				
 
 			}
@@ -227,33 +228,50 @@ public class Frame {
 			public void actionPerformed(ActionEvent e) {
 				
 				String as = d.getText();
-				a = Integer.parseInt(as) - 1;
-				z = message.get(a);
-				char res=z.charAt(0);
-				if(res=='M'||res=='Q'){
+				// the line number method is called here to see if the user enters the correct line number
+				// this method is also called in the edit method below line 554
+				// the method of working is the same
+				String dcc=lineNumber(as);
+				// the string return from the method is checked if its true and if so the normal code resumes
+				if(dcc.equals("true")){
+					a = Integer.parseInt(as) - 1;
+					z = message.get(a);
 					number = scenario();
 					arr = z.split(" ", 2);
-					scenario2();
-					message.remove(a);
+					char one=z.charAt(0);
+					if(one=='M'||one=='Q'){
+						scenario2();
+						message.remove(a);
+						}
+					else if(one=='S'){
+						deleteString();
+					}
+					else if(one=='s'){
+						deleteSound();
+					}
+					else if(one=='V'){
+						deleteVoice();
+					}
 					frame1.setVisible(false);
 					frame.setVisible(true);
 					displayLog();
-	
+					displayScenario();
 				}
+                 // If you want you can add the else statement here with a message to user that the line number is wrong				
 				
 			}
 		});
        
 		question.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-                String a=disablebutton();
-                String b=disablebutton5();
-                if (a.equals("true") && b.equals("true")){
+           //     String a=disablebutton();
+           //     String b=disablebutton5();
+           //     if (a.equals("true") && b.equals("true")){
                 	message.add("Question: " + text.getText());
     				result.add(text.getText());
     				log.setText(String.join("\n", message));
     				sce.setText(String.join("\n", result));	
-                }
+        //        }
 				
 			}
 		});
@@ -272,10 +290,10 @@ public class Frame {
 
 		reorder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String a=disablebutton2();
-				if(a.equals("true")){
+			//	String a=disablebutton2();
+			//	if(a.equals("true")){
 					reorder();	
-				}
+			//	}
 				
 			}
 		});
@@ -288,10 +306,10 @@ public class Frame {
 
 		edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String a=disablebutton2();
-				if(a.equals("true")){
+			//	String a=disablebutton2();
+			//	if(a.equals("true")){
 					edit();	
-				}
+		//		}
 				
 			}
 		});
@@ -322,72 +340,72 @@ public class Frame {
 
 		repeat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String a=disablebutton();
-				String b=disablebutton5();
-				if(a.equals("true")&&b.equals("true")){
+			//	String a=disablebutton();
+			//	String b=disablebutton5();
+			//	if(a.equals("true")&&b.equals("true")){
 					repeat();	
-				}
+			//	}
 				
 			}
 		});
 
 		sound.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String a=disablebutton();
-				String b=disablebutton5();
-				if(a.equals("true")&&b.equals("true")){
+		//		String a=disablebutton();
+		//		String b=disablebutton5();
+		//		if(a.equals("true")&&b.equals("true")){
 					soundbutton();	
-				}
+		//		}
 				
 			}
 		});
 
 		voice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String a=disablebutton7();
-				if(a.equals("true")){
+			//	String a=disablebutton7();
+			//	if(a.equals("true")){
 					voicebutton();	
-				}
+			//	}
 				
 			}
 		});
 
 		charsetting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String a=disablebutton6();
-				if(a.equals("true")){
+			//	String a=disablebutton6();
+			//	if(a.equals("true")){
 					voicebutton();	
-				}
+			//	}
 			}
 		});
 
 		stringsetting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String a=disablebutton6();
-				if(a.equals("true")){
+			//	String a=disablebutton6();
+			//	if(a.equals("true")){
 					stringsetting();	
-				}
+			//	}
 			}
 		});
        // button set 
 		choices.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String a=disablebutton3();
-				String b=disablebutton5();
+			//	String a=disablebutton3();
+			//	String b=disablebutton5();
 				
-				if(a.equals("true")&&b.equals("true")){
+			//	if(a.equals("true")&&b.equals("true")){
 					choices();	
-				}
+			//	}
 				
 			}
 		});
        //correct / incorrect scenario
 		choice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String a=disablebutton4();
-				if(a.equals("true")){
+			//	String a=disablebutton4();
+			//	if(a.equals("true")){
 					choice();	
-				}
+			//	}
 				
 			}
 		});
@@ -496,7 +514,8 @@ public class Frame {
 			message.set(t, e);
 			frame4.dispose();
 			frame.setVisible(true);
-			displayLog();	
+			displayLog();
+			displayScenario();
 		}
 		
 	}
@@ -534,28 +553,54 @@ public class Frame {
 
 	public void oki() {
 		String b = e.getText();
-		c = Integer.parseInt(b) - 1;
-		String f = message.get(c);
-		char res=f.charAt(0);
-		if(res=='M'||res=='Q'){
-			scenario3();
-			scenario4();
-			char e = f.charAt(0);
-			if (e == 'M') {
-				String a = "Message: " + d.getText();
-				message.set(c, a);
-			} else if (e == 'Q') {
-				String a = "Question: " + d.getText();
-				message.set(c, a);
+		String dcc=lineNumber(b);
+		if(dcc.equals("true")){
+			c = Integer.parseInt(b) - 1;
+			String f = message.get(c);
+			char one=f.charAt(0);
+			
+			if(one=='M' || one=='Q'){
+				scenario3();
+				scenario4();
+				char e = f.charAt(0);
+				
+				if (e == 'M') {
+					String a = "Message: " + d.getText();
+					message.set(c, a);
+				} else if (e == 'Q') {
+					String a = "Question: " + d.getText();
+					message.set(c, a);
+				}
+				else if(e=='S'){
+					String a= "String: " + d.getText();
+					message.set(c, a);
+				}
 			}
-
-			frame3.dispose();
-			frame.setVisible(true);
-			displayLog();	
+			else if(one=='S'){
+				editString();
+			}
+			else if(one=='s'){
+				editSound();
+			}
+			else if(one=='V'){
+				editVoice();
+			}
+					
+				
+			
+				frame3.dispose();
+				frame.setVisible(true);
+				displayLog();	
+				displayScenario();
 		}
 		
+				
+			
+		}
+		
+		
 
-	}
+	
 
 	public void NEW() {
 
@@ -766,6 +811,7 @@ public class Frame {
 			public void actionPerformed(ActionEvent e) {
 				start();
 				displayLog();
+				displayScenario();
 			}
 		});
 
@@ -773,6 +819,7 @@ public class Frame {
 			public void actionPerformed(ActionEvent e) {
 				stop();
 				displayLog();
+				displayScenario();
 			}
 		});
 
@@ -815,6 +862,7 @@ public class Frame {
 		message.add("Sound added");
 		result.add("/~sound:");
 		displayLog();
+		displayScenario();
 	}
 
 	public void voicebutton() {
@@ -824,11 +872,12 @@ public class Frame {
 			
 			if(message.get(i).equals("SeT voice")){
 			message.remove(i);
-			message.add(i,"Voice added");
-			result.add("/~set-voice:");
+			message.add(i,"Voice: 1");
+			result.add("/~set-voice:1");
 			}
 		}
 		displayLog();
+		displayScenario();
 	}
 
 	public void stringsetting() {
@@ -846,6 +895,7 @@ public class Frame {
 		ok.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String a="String: "+d.getText();
+			
 				int f=message.size();
 				for(int i=0;i<f;i++){
 					
@@ -856,7 +906,7 @@ public class Frame {
 					}
 				}
 				displayLog();
-				
+				displayScenario();
 			}
 		});
 		
@@ -908,6 +958,7 @@ public class Frame {
 				result.add("/~user-input");
 				result.add("");
 				displayLog();
+				displayScenario();
 			}
 		});
 		
@@ -1047,6 +1098,7 @@ public class Frame {
 				result.add("/~disp-clearALL");
 				result.add("/~reset-buttons");
 				displayLog();
+				displayScenario();
 			}
 		});
 		
@@ -1177,6 +1229,181 @@ public class Frame {
 			String b="false";
 			return b;
 		}
+	}
+    // all the editing methods for editing sound,string,voice are below
+   public void editString(){
+	   int number=scenario3();
+	   int e = 0;
+	   String w = message.get(c);
+	   String[] y = w.split(" ", 2);
+	   if(number-1==0){
+		  int num= result.indexOf("/~disp-string:"+y[1]);
+		   result.set(num,"/~disp-string:"+d.getText());
+		   message.set(c,"String: "+d.getText());
+	   }
+	   else{
+		   for (int i = 0; number != e; i++){
+			   if (result.get(i).equals("/~disp-string:"+y[1])){
+				   e++;
+					if (e == number){
+						result.set(i,"/~disp-string:"+d.getText());
+						 message.set(c,"String: "+d.getText());
+					}
+			   }
+		   }
+	   }
+	   
+   }
+   
+   public void editVoice(){
+	   if(d.getText().equals("1")||d.getText().equals("2")||d.getText().equals("3")||d.getText().equals("4")){
+		   int number=scenario3();
+		   int e = 0;
+		   String w = message.get(c);
+		   String[] y = w.split(" ", 2);
+		   if(number-1==0){
+			  int num= result.indexOf("/~set-voice:"+y[1]);
+			   result.set(num,"/~set-voice:"+d.getText());
+			   message.set(c,"Voice: "+d.getText());
+		   }
+		   else{
+			   for (int i = 0; number != e; i++){
+				   if (result.get(i).equals("/~set-voice:"+y[1])){
+					   e++;
+						if (e == number){
+							result.set(i,"/~set-voice:"+d.getText());
+							message.set(c,"Voice: "+d.getText());
+						}
+				   }
+			   }
+		   }
+	   }
+	  
+   }
+   
+   public void editSound(){
+	   // here I want you to call the sound gui frame that comes when we press the sound button
+	   // from that box the user will select the new sound he wants to add in place of the current one
+	   // in this part basically we are not reading anything from the textfield so the user can type anything in the message bar dosent matter once it realises that the line the user wants to edit is actually a sound file it will open the sound dialouge box once the user clicks ok on the edit JFrame cause we cant make the user type the sound file name as he might make mistake or maybe don't even remember
+	   int number=scenario3();
+	   int e = 0;
+	   String w = message.get(c);
+	   String[] y = w.split(" ", 2);
+	   if(number-1==0){
+		  int num= result.indexOf("/~sound:"+y[1]);
+		  // here I want you to add the file name that the user selected above eg:result.set(num,"/~sound:"+the filename of sound the user added)
+		   result.set(num,"/~sound:"+d.getText());
+		   //here I want you to add the file name that the user selected above eg:message.set(c,"sound: "+the filename of sound the user added)
+		   message.set(c,"sound: "+d.getText());
+		   // just replace d.getText() with the filename user is selecting
+	   }
+	   else{
+		   for (int i = 0; number != e; i++){
+			   if (result.get(i).equals("/~sound:"+y[1])){
+				   e++;
+					if (e == number){
+						 // here I want you to add the file name that the user selected above eg:result.set(num,"/~sound:"+the filename of sound the user added)
+						result.set(i,"/~sound:"+d.getText());
+						//here I want you to add the file name that the user selected above eg:message.set(c,"sound: "+the filename of sound the user added)
+						message.set(c,"sound: "+d.getText());
+					}
+			   }
+		   }
+	   }
+   }
+   // all the delete methods for deleting string,sound,voice are below
+   public void deleteString(){
+	   int number=scenario();
+	   String res = arr[1];
+		int c = 0;
+		if (number - 1 == 0) {
+			int b = result.indexOf("/~disp-string:"+res);
+			result.remove(b);
+			message.remove(a);
+
+		} else {
+
+			for (int i = 0; number != c; i++) {
+
+				if (result.get(i).equals("/~disp-string:"+res)) {
+					c++;
+					if (c == number) {
+						result.remove(i);
+						message.remove(a);
+					}
+				}
+
+			}
+		}
+   }
+   
+   public void deleteVoice(){
+	   int number=scenario();
+	   String res = arr[1];
+		int c = 0;
+		if (number - 1 == 0) {
+			int b = result.indexOf("/~set-voice:"+res);
+			result.remove(b);
+			message.remove(a);
+
+		} else {
+
+			for (int i = 0; number != c; i++) {
+
+				if (result.get(i).equals("/~set-voice:"+res)) {
+					c++;
+					if (c == number) {
+						result.remove(i);
+						message.remove(a);
+					}
+				}
+
+			}
+		}
+   }
+   
+   public void deleteSound(){
+	   int number=scenario();
+	   String res = arr[1];
+		int c = 0;
+		if (number - 1 == 0) {
+			int b = result.indexOf("/~sound:"+res);
+			result.remove(b);
+			message.remove(a);
+
+		} else {
+
+			for (int i = 0; number != c; i++) {
+
+				if (result.get(i).equals("/~sound:"+res)) {
+					c++;
+					if (c == number) {
+						result.remove(i);
+						message.remove(a);
+					}
+				}
+
+			}
+		}
+   }
+   
+   public String lineNumber(String b){
+	   int a=message.size();
+	   int c=Integer.parseInt(b);
+	   String ab;
+	   if(c<=a){
+		   ab="true";
+		   return ab;
+	   }
+	   else{
+		   ab="false";
+		   return ab;
+	   }
+	   
+   }
+   // add this method underneath all the displayLog() method you placed basically it displays text on the scenario file one a button is clicked its important so do it for sure.
+   public void displayScenario(){
+	   sce.setText(String.join("\n", result));
 	}
     
     
